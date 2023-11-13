@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author Marti
@@ -16,6 +18,10 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
     public MaquetaTableroJuego() {
         initComponents();
     }
+    
+    public JButton getBotonPasar(){
+        return pasarTurno;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,311 +32,71 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CampoAliado = new javax.swing.JPanel();
-        CasillaAl0 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        CasillaAl1 = new javax.swing.JPanel();
-        jSeparator2 = new javax.swing.JSeparator();
-        CasillaAl2 = new javax.swing.JPanel();
-        jSeparator4 = new javax.swing.JSeparator();
-        CasillaAl3 = new javax.swing.JPanel();
-        jSeparator5 = new javax.swing.JSeparator();
-        CasillaAl4 = new javax.swing.JPanel();
-        CampoEnemigo = new javax.swing.JPanel();
-        CasillaEn0 = new javax.swing.JPanel();
-        jSeparator3 = new javax.swing.JSeparator();
-        CasillaEn1 = new javax.swing.JPanel();
-        jSeparator6 = new javax.swing.JSeparator();
-        CasillaEn2 = new javax.swing.JPanel();
-        jSeparator7 = new javax.swing.JSeparator();
-        CasillaEn3 = new javax.swing.JPanel();
-        jSeparator8 = new javax.swing.JSeparator();
-        CasillaEn4 = new javax.swing.JPanel();
-        Mano = new javax.swing.JPanel();
+        campo2 = new GUI.Campo.Campo();
+        campo1 = new GUI.Campo.Campo();
+        pasarTurno = new javax.swing.JButton();
+        mano1 = new GUI.Campo.Mano();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setBackground(new java.awt.Color(51, 0, 51));
+        setForeground(new java.awt.Color(51, 0, 51));
         setMaximumSize(new java.awt.Dimension(1190, 700));
         setMinimumSize(new java.awt.Dimension(850, 500));
-        setPreferredSize(new java.awt.Dimension(1190, 700));
         setResizable(false);
         setSize(new java.awt.Dimension(1190, 700));
 
-        CampoAliado.setName("CampoAliado"); // NOI18N
-        CampoAliado.setLayout(new javax.swing.BoxLayout(CampoAliado, javax.swing.BoxLayout.LINE_AXIS));
+        pasarTurno.setText("Pasar turno");
+        pasarTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasarTurnoActionPerformed(evt);
+            }
+        });
 
-        CasillaAl0.setBackground(new java.awt.Color(102, 255, 0));
-        CasillaAl0.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaAl0.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaAl0.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaAl0Layout = new javax.swing.GroupLayout(CasillaAl0);
-        CasillaAl0.setLayout(CasillaAl0Layout);
-        CasillaAl0Layout.setHorizontalGroup(
-            CasillaAl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaAl0Layout.setVerticalGroup(
-            CasillaAl0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoAliado.add(CasillaAl0);
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator1.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator1.setMinimumSize(new java.awt.Dimension(10, 80));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(10, 80));
-        CampoAliado.add(jSeparator1);
-
-        CasillaAl1.setBackground(new java.awt.Color(102, 255, 0));
-        CasillaAl1.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaAl1.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaAl1.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaAl1Layout = new javax.swing.GroupLayout(CasillaAl1);
-        CasillaAl1.setLayout(CasillaAl1Layout);
-        CasillaAl1Layout.setHorizontalGroup(
-            CasillaAl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaAl1Layout.setVerticalGroup(
-            CasillaAl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoAliado.add(CasillaAl1);
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator2.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator2.setMinimumSize(new java.awt.Dimension(10, 80));
-        jSeparator2.setPreferredSize(new java.awt.Dimension(10, 80));
-        CampoAliado.add(jSeparator2);
-
-        CasillaAl2.setBackground(new java.awt.Color(102, 255, 0));
-        CasillaAl2.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaAl2.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaAl2.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaAl2Layout = new javax.swing.GroupLayout(CasillaAl2);
-        CasillaAl2.setLayout(CasillaAl2Layout);
-        CasillaAl2Layout.setHorizontalGroup(
-            CasillaAl2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaAl2Layout.setVerticalGroup(
-            CasillaAl2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoAliado.add(CasillaAl2);
-
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator4.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator4.setMinimumSize(new java.awt.Dimension(10, 80));
-        jSeparator4.setPreferredSize(new java.awt.Dimension(10, 80));
-        CampoAliado.add(jSeparator4);
-
-        CasillaAl3.setBackground(new java.awt.Color(102, 255, 0));
-        CasillaAl3.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaAl3.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaAl3.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaAl3Layout = new javax.swing.GroupLayout(CasillaAl3);
-        CasillaAl3.setLayout(CasillaAl3Layout);
-        CasillaAl3Layout.setHorizontalGroup(
-            CasillaAl3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaAl3Layout.setVerticalGroup(
-            CasillaAl3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoAliado.add(CasillaAl3);
-
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator5.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator5.setMinimumSize(new java.awt.Dimension(10, 80));
-        jSeparator5.setPreferredSize(new java.awt.Dimension(10, 80));
-        CampoAliado.add(jSeparator5);
-
-        CasillaAl4.setBackground(new java.awt.Color(102, 255, 0));
-        CasillaAl4.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaAl4.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaAl4.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaAl4Layout = new javax.swing.GroupLayout(CasillaAl4);
-        CasillaAl4.setLayout(CasillaAl4Layout);
-        CasillaAl4Layout.setHorizontalGroup(
-            CasillaAl4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaAl4Layout.setVerticalGroup(
-            CasillaAl4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoAliado.add(CasillaAl4);
-
-        CampoEnemigo.setName("CampoAliado"); // NOI18N
-        CampoEnemigo.setPreferredSize(new java.awt.Dimension(540, 156));
-        CampoEnemigo.setLayout(new javax.swing.BoxLayout(CampoEnemigo, javax.swing.BoxLayout.X_AXIS));
-
-        CasillaEn0.setBackground(new java.awt.Color(255, 0, 0));
-        CasillaEn0.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaEn0.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaEn0.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaEn0Layout = new javax.swing.GroupLayout(CasillaEn0);
-        CasillaEn0.setLayout(CasillaEn0Layout);
-        CasillaEn0Layout.setHorizontalGroup(
-            CasillaEn0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaEn0Layout.setVerticalGroup(
-            CasillaEn0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoEnemigo.add(CasillaEn0);
-
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator3.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator3.setMinimumSize(new java.awt.Dimension(10, 80));
-        CampoEnemigo.add(jSeparator3);
-
-        CasillaEn1.setBackground(new java.awt.Color(255, 0, 0));
-        CasillaEn1.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaEn1.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaEn1.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaEn1Layout = new javax.swing.GroupLayout(CasillaEn1);
-        CasillaEn1.setLayout(CasillaEn1Layout);
-        CasillaEn1Layout.setHorizontalGroup(
-            CasillaEn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaEn1Layout.setVerticalGroup(
-            CasillaEn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoEnemigo.add(CasillaEn1);
-
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator6.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator6.setMinimumSize(new java.awt.Dimension(10, 80));
-        CampoEnemigo.add(jSeparator6);
-
-        CasillaEn2.setBackground(new java.awt.Color(255, 0, 0));
-        CasillaEn2.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaEn2.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaEn2.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaEn2Layout = new javax.swing.GroupLayout(CasillaEn2);
-        CasillaEn2.setLayout(CasillaEn2Layout);
-        CasillaEn2Layout.setHorizontalGroup(
-            CasillaEn2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaEn2Layout.setVerticalGroup(
-            CasillaEn2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoEnemigo.add(CasillaEn2);
-
-        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator7.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator7.setMinimumSize(new java.awt.Dimension(10, 80));
-        CampoEnemigo.add(jSeparator7);
-
-        CasillaEn3.setBackground(new java.awt.Color(255, 0, 0));
-        CasillaEn3.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaEn3.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaEn3.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaEn3Layout = new javax.swing.GroupLayout(CasillaEn3);
-        CasillaEn3.setLayout(CasillaEn3Layout);
-        CasillaEn3Layout.setHorizontalGroup(
-            CasillaEn3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaEn3Layout.setVerticalGroup(
-            CasillaEn3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoEnemigo.add(CasillaEn3);
-
-        jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator8.setMaximumSize(new java.awt.Dimension(10, 80));
-        jSeparator8.setMinimumSize(new java.awt.Dimension(10, 80));
-        CampoEnemigo.add(jSeparator8);
-
-        CasillaEn4.setBackground(new java.awt.Color(255, 0, 0));
-        CasillaEn4.setMaximumSize(new java.awt.Dimension(100, 156));
-        CasillaEn4.setMinimumSize(new java.awt.Dimension(100, 156));
-        CasillaEn4.setName(""); // NOI18N
-
-        javax.swing.GroupLayout CasillaEn4Layout = new javax.swing.GroupLayout(CasillaEn4);
-        CasillaEn4.setLayout(CasillaEn4Layout);
-        CasillaEn4Layout.setHorizontalGroup(
-            CasillaEn4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        CasillaEn4Layout.setVerticalGroup(
-            CasillaEn4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
-        );
-
-        CampoEnemigo.add(CasillaEn4);
-
-        Mano.setBackground(new java.awt.Color(0, 0, 255));
-        Mano.setMaximumSize(new java.awt.Dimension(1000, 200));
-        Mano.setMinimumSize(new java.awt.Dimension(1000, 200));
-        Mano.setPreferredSize(new java.awt.Dimension(1000, 200));
-
-        javax.swing.GroupLayout ManoLayout = new javax.swing.GroupLayout(Mano);
-        Mano.setLayout(ManoLayout);
-        ManoLayout.setHorizontalGroup(
-            ManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-        );
-        ManoLayout.setVerticalGroup(
-            ManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
+        mano1.setLayout(new javax.swing.BoxLayout(mano1, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
+                        .addGap(325, 325, 325)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CampoAliado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CampoEnemigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(Mano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(95, 95, 95))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85)
+                                .addComponent(pasarTurno))
+                            .addComponent(campo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(mano1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addComponent(CampoEnemigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(CampoAliado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(Mano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addComponent(campo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(campo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(mano1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(pasarTurno)))
+                .addGap(36, 36, 36))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pasarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasarTurnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pasarTurnoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,28 +133,15 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public void anadirCarta(int i){
+        mano1.anadirTarjeta(i);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel CampoAliado;
-    private javax.swing.JPanel CampoEnemigo;
-    private javax.swing.JPanel CasillaAl0;
-    private javax.swing.JPanel CasillaAl1;
-    private javax.swing.JPanel CasillaAl2;
-    private javax.swing.JPanel CasillaAl3;
-    private javax.swing.JPanel CasillaAl4;
-    private javax.swing.JPanel CasillaEn0;
-    private javax.swing.JPanel CasillaEn1;
-    private javax.swing.JPanel CasillaEn2;
-    private javax.swing.JPanel CasillaEn3;
-    private javax.swing.JPanel CasillaEn4;
-    private javax.swing.JPanel Mano;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
+    private GUI.Campo.Campo campo1;
+    private GUI.Campo.Campo campo2;
+    private GUI.Campo.Mano mano1;
+    public javax.swing.JButton pasarTurno;
     // End of variables declaration//GEN-END:variables
 }

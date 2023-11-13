@@ -8,7 +8,7 @@ package Tarjetas;
  *
  * @author Marti
  */
-public class Directo extends BaseTarjeta{
+public class Directo extends Tarjeta{
     public Directo(int i){
         this.tipoAtaque = 4;
         
@@ -22,8 +22,8 @@ public class Directo extends BaseTarjeta{
                 this.valorSalud = 30;
                 break;
             }
-            case 17 ->{
-                this.id = 17;
+            case 18 ->{
+                this.id = 18;
                 this.nombre = "Fantasmario";
                 this.valorAtaque = 10;
                 this.valorDefensa = 35;

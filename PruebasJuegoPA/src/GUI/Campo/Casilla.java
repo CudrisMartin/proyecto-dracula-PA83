@@ -4,18 +4,56 @@
  */
 package GUI.Campo;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Random;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author a
  */
 public class Casilla extends javax.swing.JPanel {
+    
+    private int tipoCasilla;
+    
+    private int idTarjeta;
+    private ImageIcon sprite;
 
     /**
      * Creates new form Casilla
      */
     public Casilla() {
         initComponents();
+        this.tipoCasilla = 0;
     }
+    
+    public Casilla(int i) {
+        this.tipoCasilla = 1;
+        this.idTarjeta = i;
+        initComponents();
+        actualizarSprite(idTarjeta);
+    }
+    
+    @Override
+    public void paint(Graphics g){
+        super.paint(g);
+        
+        if (idTarjeta == 0){
+            g.setColor(Color.CYAN);
+            g.fillRect(0, 0, 100, 156);
+        }else{
+            g.drawImage(sprite.getImage(), 0,0, 100, 156, this);
+        }
+    }
+    
+    public void actualizarSprite(int id){
+        this.idTarjeta = id;
+        this.sprite = new ImageIcon(getClass().getResource("/Recursos/Sprites/JPD_PA"+id+".png"));
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,6 +64,7 @@ public class Casilla extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setBackground(new java.awt.Color(255, 255, 0));
         setMaximumSize(new java.awt.Dimension(100, 156));
         setMinimumSize(new java.awt.Dimension(100, 156));
         setPreferredSize(new java.awt.Dimension(100, 156));

@@ -6,15 +6,23 @@ package GUI.Campo;
 
 /**
  *
- * @author a
+ * @author Marti
  */
-public class Tablero extends javax.swing.JPanel {
+public class Mano extends javax.swing.JPanel {
 
     /**
-     * Creates new form Tablero
+     * Creates new form Mano
      */
-    public Tablero() {
+    public Mano() {
         initComponents();
+    }
+    
+    public void anadirTarjeta(int i){
+        Casilla c = new Casilla(i);
+        c.setVisible(true);
+        this.add(c);
+        this.updateUI();
+        
     }
 
     /**
@@ -26,16 +34,11 @@ public class Tablero extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setBackground(new java.awt.Color(0, 0, 255));
+        setMaximumSize(new java.awt.Dimension(1000, 200));
+        setMinimumSize(new java.awt.Dimension(1000, 200));
+        setPreferredSize(new java.awt.Dimension(1000, 200));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.X_AXIS));
     }// </editor-fold>//GEN-END:initComponents
 
 

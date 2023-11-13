@@ -8,7 +8,7 @@ package Tarjetas;
  *
  * @author Marti
  */
-public class TripleLinea extends BaseTarjeta {
+public class TripleLinea extends Tarjeta {
     public TripleLinea(int i){
         this.tipoAtaque = 2;
         

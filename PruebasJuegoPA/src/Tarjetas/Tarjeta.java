@@ -8,7 +8,7 @@ package Tarjetas;
  *
  * @author Marti
  */
-public abstract class BaseTarjeta implements Interfaces.MetodosCartas {
+public abstract class Tarjeta implements Interfaces.MetodosCartas {
     
     protected int id;
     protected String nombre;
@@ -22,6 +22,10 @@ public abstract class BaseTarjeta implements Interfaces.MetodosCartas {
     @Override
     public void recibirDaño(int at){
         valorSalud -= (int)at/valorDefensa;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     @Override

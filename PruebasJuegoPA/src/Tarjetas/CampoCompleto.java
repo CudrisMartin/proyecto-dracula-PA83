@@ -5,14 +5,14 @@ package Tarjetas;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import Tarjetas.BaseTarjeta;
+import Tarjetas.Tarjeta;
 
 /**
  *
  * @author Marti
  */
-public class TableroCompleto extends BaseTarjeta {
-    public TableroCompleto(int i){
+public class CampoCompleto extends Tarjeta {
+    public CampoCompleto(int i){
         this.tipoAtaque = 3;
         
         switch (i){
@@ -27,7 +27,7 @@ public class TableroCompleto extends BaseTarjeta {
             }
             case 17 ->{
                 this.id = 17;
-                this.nombre = "Tubedusa";
+                this.nombre = "DragonThor";
                 this.valorAtaque = 5;
                 this.valorDefensa = 25;
                 this.valorMagia = 30;

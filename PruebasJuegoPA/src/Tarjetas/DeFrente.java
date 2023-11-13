@@ -8,7 +8,7 @@ package Tarjetas;
  *
  * @author Marti
  */
-public class DeFrente extends BaseTarjeta{
+public class DeFrente extends Tarjeta{
     
     public DeFrente(int i){
         this.tipoAtaque = 1;
