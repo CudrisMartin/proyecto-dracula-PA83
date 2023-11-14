@@ -9,13 +9,15 @@ import Tarjetas.Mazo;
 import Tarjetas.Tarjeta;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /**
  *
  * @author Marti
  */
-public class ControlEnfrentamiento implements ActionListener{
+public class ControlEnfrentamiento implements ActionListener, MouseListener{
     
     private Mazo mazoJugador;
     private ArrayList<Tarjeta> mano;
@@ -35,7 +37,6 @@ public class ControlEnfrentamiento implements ActionListener{
         this.mtj = new MaquetaTableroJuego();
         this.mtj.setVisible(true);
         this.mtj.pasarTurno.addActionListener(this);
-        
     }
     
     /**
@@ -56,6 +57,31 @@ public class ControlEnfrentamiento implements ActionListener{
                 }
             }
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println(mtj.getCarSel());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        return;
     }
     
 }

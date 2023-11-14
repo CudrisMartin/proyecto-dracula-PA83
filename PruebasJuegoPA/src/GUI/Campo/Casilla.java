@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 public class Casilla extends javax.swing.JPanel {
     
     private int tipoCasilla;
+    private int numeroCarta;
     
     private int idTarjeta;
     private ImageIcon sprite;
@@ -52,8 +53,18 @@ public class Casilla extends javax.swing.JPanel {
         this.idTarjeta = id;
         this.sprite = new ImageIcon(getClass().getResource("/Recursos/Sprites/JPD_PA"+id+".png"));
     }
-    
-    
+
+    public int getNumeroCarta() {
+        return numeroCarta;
+    }
+
+    public void setNumeroCarta(int numeroCarta) {
+        this.numeroCarta = numeroCarta;
+    }
+
+    public int getTipoCasilla() {
+        return tipoCasilla;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,6 +79,11 @@ public class Casilla extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(100, 156));
         setMinimumSize(new java.awt.Dimension(100, 156));
         setPreferredSize(new java.awt.Dimension(100, 156));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -80,6 +96,10 @@ public class Casilla extends javax.swing.JPanel {
             .addGap(0, 156, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

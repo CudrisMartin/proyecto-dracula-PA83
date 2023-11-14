@@ -4,11 +4,17 @@
  */
 package GUI.Campo;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 /**
  *
  * @author Marti
  */
-public class Mano extends javax.swing.JPanel {
+public class Mano extends javax.swing.JPanel implements MouseListener {
+    
+    private int cartaSeleccionada;
+    private int tamanoMano;
 
     /**
      * Creates new form Mano
@@ -19,11 +25,15 @@ public class Mano extends javax.swing.JPanel {
     
     public void anadirTarjeta(int i){
         Casilla c = new Casilla(i);
+        c.setNumeroCarta(tamanoMano +1);
+        this.tamanoMano += 1;
         c.setVisible(true);
+        c.addMouseListener(this);
         this.add(c);
         this.updateUI();
-        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,6 +50,41 @@ public class Mano extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1000, 200));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.X_AXIS));
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (cartaSeleccionada == 0){
+            if (e.getSource().getClass() == Casilla.class) {
+                if (((Casilla) e.getSource()).getTipoCasilla() == 1){
+                    this.cartaSeleccionada = ((Casilla) e.getSource()).getNumeroCarta();
+                }
+            }
+        }
+    }
+
+    public int getCartaSeleccionada() {
+        return cartaSeleccionada;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        return;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

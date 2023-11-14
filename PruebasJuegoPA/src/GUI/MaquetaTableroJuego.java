@@ -4,13 +4,17 @@
  */
 package GUI;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 /**
  *
  * @author Marti
  */
-public class MaquetaTableroJuego extends javax.swing.JFrame {
+public class MaquetaTableroJuego extends javax.swing.JFrame implements MouseListener{
+    
+    private int carSel;
 
     /**
      * Creates new form TableroJuego
@@ -144,4 +148,33 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
     private GUI.Campo.Mano mano1;
     public javax.swing.JButton pasarTurno;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        this.carSel = mano1.getCartaSeleccionada();
+    }
+
+    public int getCarSel() {
+        return carSel;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
