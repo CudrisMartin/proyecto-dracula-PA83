@@ -4,6 +4,7 @@
  */
 package Controladores;
 
+import GUI.Campo.Casilla;
 import GUI.MaquetaTableroJuego;
 import Tarjetas.Mazo;
 import Tarjetas.Tarjeta;
@@ -12,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
+import java.awt.Component;
 
 /**
  *
@@ -24,7 +27,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
     
     private Tarjeta[] campoEnemigo, campoAliado;
     
-    private MaquetaTableroJuego mtj;
+    private static MaquetaTableroJuego mtj;
     
     private int cartaSeleccionada;
 
@@ -37,13 +40,13 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
         this.mtj = new MaquetaTableroJuego();
         this.mtj.setVisible(true);
         this.mtj.pasarTurno.addActionListener(this);
+        this.mtj.getMano1().addMouseListener(this);
     }
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
     }
 
     @Override
@@ -54,6 +57,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                 if (t != null){
                     mtj.anadirCarta(t.getId());
                     mano.add(t);
+                     System.out.println("Id carta en Control: "+t.getId());
                 }
             }
         }
@@ -61,7 +65,15 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(mtj.getCarSel());
+        if(e.getSource().getClass() == Casilla.class){
+            Component[] componentes = mtj.getMano1().getComponents();
+            for (int i = 0; i < componentes.length; i++){
+                if(componentes[i] == e.getSource()){
+                    cartaSeleccionada = i;
+                }
+            }
+            System.out.println("Carta seleccionada: "+mano.get(cartaSeleccionada).getNombre());
+        }
     }
 
     @Override
