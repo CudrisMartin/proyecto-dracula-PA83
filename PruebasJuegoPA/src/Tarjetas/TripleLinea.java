@@ -7,8 +7,12 @@ package Tarjetas;
 /**
  *
  * @author Marti
+ * 
+ * Las tarjetas TripleLinea atacan no solo a la tarjeta al frente suyo, sino a las que tenga a sus costados
  */
 public class TripleLinea extends Tarjeta {
+    
+    /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
     public TripleLinea(int i){
         this.tipoAtaque = 2;
         

@@ -7,8 +7,13 @@ package Tarjetas;
 /**
  *
  * @author Marti
+ * 
+ * Las cartas tipo Directo atacan directamente al jugador, ignorando las cartas que tienen
+ * justo al frente.
  */
 public class Directo extends Tarjeta{
+    
+    /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
     public Directo(int i){
         this.tipoAtaque = 4;
         

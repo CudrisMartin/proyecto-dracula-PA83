@@ -8,6 +8,8 @@ package Controladores;
 /**
  *
  * @author Marti
+ * 
+ * Seleciona cual es el objeto que toma el control del Main principal
  */
 public class Launcher {
 

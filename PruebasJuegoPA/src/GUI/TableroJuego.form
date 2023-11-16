@@ -46,16 +46,16 @@
                       <EmptySpace min="-2" pref="325" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="campo1" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoAliado" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                               <Component id="pasarTurno" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="campo2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoEnemigo" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                      <Component id="mano1" min="-2" max="-2" attributes="0"/>
+                      <Component id="mano" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="95" max="32767" attributes="0"/>
@@ -66,13 +66,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="52" max="32767" attributes="0"/>
-              <Component id="campo2" min="-2" max="-2" attributes="0"/>
+              <Component id="campoEnemigo" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="campo1" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoAliado" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                      <Component id="mano1" min="-2" max="-2" attributes="0"/>
+                      <Component id="mano" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -85,9 +85,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="GUI.Campo.Campo" name="campo2">
+    <Component class="GUI.Campo.Campo" name="campoEnemigo">
     </Component>
-    <Component class="GUI.Campo.Campo" name="campo1">
+    <Component class="GUI.Campo.Campo" name="campoAliado">
     </Component>
     <Component class="javax.swing.JButton" name="pasarTurno">
       <Properties>
@@ -96,11 +96,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pasarTurnoActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
     </Component>
-    <Container class="GUI.Campo.Mano" name="mano1">
+    <Container class="GUI.Campo.Mano" name="mano">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
     </Container>

@@ -7,6 +7,8 @@ package Interfaces;
 /**
  *
  * @author Marti
+ * 
+ * Interfaz que permite obtener todos los metodos de las tarjetas de forma facil.
  */
 public interface MetodosCartas {
     public void recibirDaño(int at);

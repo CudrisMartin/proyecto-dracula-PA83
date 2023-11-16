@@ -4,9 +4,13 @@
  */
 package GUI.Campo;
 
+import java.awt.Component;
+
 /**
  *
- * @author a
+ * @author Marti
+ * 
+ * Muestra las cartas de cada bando que se presentan en combate en el tablero.
  */
 public class Campo extends javax.swing.JPanel {
 
@@ -15,6 +19,17 @@ public class Campo extends javax.swing.JPanel {
      */
     public Campo() {
         initComponents();
+    }
+    
+    /* 
+        Ubica el controlador del combate como el detector de clicks de cada
+        casilla
+    */
+    public void setListeners(){
+        Component[] comp = this.getComponents();
+        for (Component comp1 : comp) {
+            comp1.addMouseListener(this.getMouseListeners()[0]);
+        }
     }
 
     /**

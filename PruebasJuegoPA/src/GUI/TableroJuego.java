@@ -4,32 +4,47 @@
  */
 package GUI;
 
+import GUI.Campo.Campo;
 import GUI.Campo.Mano;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 /**
  *
  * @author Marti
+ * 
+ * Muestra por GUI el transcurso de todo el enfrentamiento.
  */
-public class MaquetaTableroJuego extends javax.swing.JFrame {
+public class TableroJuego extends javax.swing.JFrame {
 
     /**
      * Creates new form TableroJuego
      */
-    public MaquetaTableroJuego() {
+    public TableroJuego() {
         initComponents();
+    }
+    public void anadirCarta(int i){
+        mano.anadirTarjeta(i);
+    }
+    
+    public void eliminarCarta(int i){
+        mano.eliminarCarta(i);
     }
     
     public JButton getBotonPasar(){
         return pasarTurno;
     }
 
-    public Mano getMano1() {
-        return mano1;
+    public Mano getMano() {
+        return mano;
     }
 
+    public Campo getCampoAliado() {
+        return campoAliado;
+    }
+
+    public Campo getCampoEnemigo() {
+        return campoEnemigo;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,10 +55,10 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        campo2 = new GUI.Campo.Campo();
-        campo1 = new GUI.Campo.Campo();
+        campoEnemigo = new GUI.Campo.Campo();
+        campoAliado = new GUI.Campo.Campo();
         pasarTurno = new javax.swing.JButton();
-        mano1 = new GUI.Campo.Mano();
+        mano = new GUI.Campo.Mano();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -61,7 +76,7 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
             }
         });
 
-        mano1.setLayout(new javax.swing.BoxLayout(mano1, javax.swing.BoxLayout.LINE_AXIS));
+        mano.setLayout(new javax.swing.BoxLayout(mano, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,26 +88,26 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
                         .addGap(325, 325, 325)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(campo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoAliado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(85, 85, 85)
                                 .addComponent(pasarTurno))
-                            .addComponent(campo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(campoEnemigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(95, 95, 95)
-                        .addComponent(mano1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(mano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(campo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoEnemigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(campo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoAliado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(82, 82, 82)
-                        .addComponent(mano1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(mano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(pasarTurno)))
@@ -123,35 +138,32 @@ public class MaquetaTableroJuego extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaquetaTableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaquetaTableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaquetaTableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaquetaTableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TableroJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MaquetaTableroJuego().setVisible(true);
+                new TableroJuego().setVisible(true);
             }
         });
     }
     
-    public void anadirCarta(int i){
-        mano1.anadirTarjeta(i);
-         System.out.println("Id carta en Tablero: "+i);
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.Campo.Campo campo1;
-    private GUI.Campo.Campo campo2;
-    private GUI.Campo.Mano mano1;
-    public javax.swing.JButton pasarTurno;
+    private GUI.Campo.Campo campoAliado;
+    private GUI.Campo.Campo campoEnemigo;
+    private GUI.Campo.Mano mano;
+    private javax.swing.JButton pasarTurno;
     // End of variables declaration//GEN-END:variables
     
 }

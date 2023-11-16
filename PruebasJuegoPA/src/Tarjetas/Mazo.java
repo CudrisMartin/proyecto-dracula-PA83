@@ -10,6 +10,10 @@ import java.util.Random;
 /**
  *
  * @author Marti
+ * 
+ * El Mazo contiene todas las referencias al mazo del jugador, permite tomar
+ * cartas así como tener un registro de
+ * cuantas queda.
  */
 public class Mazo {
     
@@ -18,6 +22,10 @@ public class Mazo {
     
     private Random rng = new Random();
     
+    /*
+    Genera aletoriamente cartas para el mazo, caracteristica a cambiar mientras
+    se desarrolla sistema de guardado de mazos en BD
+    */
     public Mazo(){
         
         this.contenidoMazo = new ArrayList<Tarjeta>();
@@ -59,6 +67,8 @@ public class Mazo {
         }
     }
     
+    
+    /* Toma una tarjeta del mazo pseudoaleatoriamente */
     public Tarjeta getTarjeta(){
         Tarjeta t = null;
         if (tamanoMazo > 0){

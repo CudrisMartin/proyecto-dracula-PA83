@@ -11,22 +11,27 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author a
+ * 
+ * Las casillas muestran por la interfaz grafica la información de las cartas
  */
 public class Casilla extends javax.swing.JPanel{
     
-    private int tipoCasilla;
+    private int tipoCasilla; // 0 para casilla de Campo, 1 para casilla de Mano
     
     private int idTarjeta;
     private ImageIcon sprite;
 
     /**
-     * Creates new form Casilla
+     * Casilla dentro de los Campos
      */
     public Casilla() {
         initComponents();
         this.tipoCasilla = 0;
     }
     
+    /*
+        Casilla dentro de la Mano
+    */
     public Casilla(int i) {
         this.tipoCasilla = 1;
         this.idTarjeta = i;
@@ -34,6 +39,9 @@ public class Casilla extends javax.swing.JPanel{
         actualizarSprite(idTarjeta);
     }
     
+    
+    
+    /* Actualiza el sprite de cada casilla dependiendo de si tiene carta o no*/
     @Override
     public void paint(Graphics g){
         super.paint(g);
@@ -46,12 +54,14 @@ public class Casilla extends javax.swing.JPanel{
         }
     }
     
+    /* Ubica cual es el sprite al quue se debe actualizar la casilla*/
     public void actualizarSprite(int id){
         this.idTarjeta = id;
         this.sprite = new ImageIcon(getClass().getResource("/Recursos/Sprites/JPD_PA"+id+".png"));
-        System.out.println("Id carta en Casilla: "+id);
+        this.updateUI();
     }
-
+    
+    /* Obtiene el tipo de casilla*/
     public int getTipoCasilla() {
         return tipoCasilla;
     }

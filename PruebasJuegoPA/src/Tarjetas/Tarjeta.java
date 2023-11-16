@@ -7,6 +7,8 @@ package Tarjetas;
 /**
  *
  * @author Marti
+ * 
+ * Clase abstracta de la que derivan todos los tipós de cartas
  */
 public abstract class Tarjeta implements Interfaces.MetodosCartas {
     
@@ -19,6 +21,8 @@ public abstract class Tarjeta implements Interfaces.MetodosCartas {
     protected int tipoAtaque;
     
     
+    
+    /* Reduce la vida de la carta en momento de juego*/
     @Override
     public void recibirDaño(int at){
         valorSalud -= (int)at/valorDefensa;
