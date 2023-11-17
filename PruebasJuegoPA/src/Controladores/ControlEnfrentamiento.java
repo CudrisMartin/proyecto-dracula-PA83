@@ -94,12 +94,25 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                     //Ubica la carta seleccionada en la casilla
                     //correspondiente del mazo
                     if (hayCarta){
-                        ((Casilla)e.getSource()).actualizarSprite(
-                                mano.get(cartaSeleccionada).getId()
-                        );
-                        mano.remove(cartaSeleccionada);
-                        mtj.eliminarCarta(cartaSeleccionada);
-                        hayCarta = false;
+                        Tarjeta t = mano.get(cartaSeleccionada);
+                        Casilla casOrigen = (Casilla)e.getSource();
+                        int ubCarta = 0;
+                        
+                        Component[] comps = mtj.getCampoAliado().getComponents();
+                        
+                        for (int i = 0; i < comps.length; i++) {
+                            if (comps[i].equals(e.getSource())){
+                                ubCarta = i;
+                            }
+                        }
+                        
+                        if (campoAliado[ubCarta] == null){
+                            casOrigen.actualizarSprite(t.getId());
+                            campoAliado[ubCarta] = t;
+                            mano.remove(cartaSeleccionada);
+                            mtj.eliminarCarta(cartaSeleccionada);
+                            hayCarta = false;
+                        }
                         break;
                     }
                 }
