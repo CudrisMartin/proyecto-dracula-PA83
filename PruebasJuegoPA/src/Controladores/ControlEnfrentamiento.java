@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import java.awt.Component;
+import java.util.Random;
 
 /**
  *
@@ -26,6 +27,7 @@ import java.awt.Component;
 public class ControlEnfrentamiento implements ActionListener, MouseListener{
     
     private Mazo mazoJugador;
+    private Mazo mazoEnemigo;
     private ArrayList<Tarjeta> mano;
     
     private Tarjeta[] campoEnemigo, campoAliado;
@@ -39,6 +41,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
         
         //Genera objetos necesarios para el transcurso de la partida
         this.mazoJugador = new Mazo();
+        this.mazoEnemigo = new Mazo();
         this.campoEnemigo = new Tarjeta[5];
         this.campoAliado = new Tarjeta[5];
         this.mano = new ArrayList<Tarjeta>();
@@ -69,6 +72,11 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mtj.getBotonPasar()){
+            
+            generarDanoAliados();
+            
+            colocarCartaEnemiga();
+            
             if (mano.size() < 10){
                 Tarjeta t = mazoJugador.getTarjeta();
                 if (t != null){
@@ -77,6 +85,64 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                 }
             }
         }
+    }
+    
+    public void generarDanoAliados(){
+        for (int i = 0; i < campoAliado.length; i++){
+            if (campoAliado[i] != null){
+                int danoReal = 0;
+                switch (campoAliado[i].getTipoAtaque()){
+                    case 1 -> {
+                        if(campoEnemigo[i] != null){
+                            danoReal += 1;
+                        }
+                        else{
+                            campoEnemigo[i].recibirDaño(campoAliado[i].getValorAtaque());
+                        }
+                        break;
+                    }
+                    case 2 -> {
+                        switch (i){
+                            case 0 -> {
+                                for (int j = 0; j < 2; j++){
+                                    if(campoEnemigo[j] != null){
+                                        danoReal += 1;
+                                    }
+                                    else{
+                                        campoEnemigo[i].recibirDaño(campoAliado[i].getValorAtaque());
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case 3 -> {
+                        danoReal = 5;
+                        break;
+                    }
+                    case 4 -> {
+                        danoReal = 1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    private void colocarCartaEnemiga(){
+        Tarjeta t = mazoEnemigo.getTarjeta();
+        
+        int posTar;
+        
+        do{
+            Random rng = new Random();
+            posTar = rng.nextInt(0, 5);
+        }while(campoAliado[posTar] != null);
+        
+        campoAliado[posTar] = t;
+        
+        ((Casilla)mtj.getCampoEnemigo().getComponents()[posTar]).actualizarSprite(t.getId());
     }
 
     /* Detecta Clicks del mouse dentro de diferentes elementos de la GUI*/
