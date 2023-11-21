@@ -20,12 +20,14 @@ public abstract class Tarjeta implements Interfaces.MetodosCartas {
     protected int valorMagia;
     protected int tipoAtaque;
     
-    
-    
     /* Reduce la vida de la carta en momento de juego*/
     @Override
     public void recibirDaño(int at){
-        valorSalud -= (int)at/valorDefensa;
+        valorSalud -= (int)2*at/valorDefensa;
+        if (valorSalud < 0){
+            valorSalud = 0;
+        }
+        System.out.println(nombre+" recibe "+at+" puntos de ataque y queda con "+valorSalud+" puntos de salud.");
     }
     
     public int getId() {

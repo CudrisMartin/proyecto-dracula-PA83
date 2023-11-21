@@ -27,7 +27,7 @@ public class TripleLinea extends Tarjeta {
                 break;
             }
             case 8 ->{
-                this.id = 3;
+                this.id = 8;
                 this.nombre = "Tubedusa";
                 this.valorAtaque = 20;
                 this.valorDefensa = 25;

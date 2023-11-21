@@ -26,16 +26,16 @@ import java.util.Random;
  */
 public class ControlEnfrentamiento implements ActionListener, MouseListener{
     
-    private Mazo mazoJugador;
-    private Mazo mazoEnemigo;
+    private Mazo mazoJugador, mazoEnemigo;
     private ArrayList<Tarjeta> mano;
-    
     private Tarjeta[] campoEnemigo, campoAliado;
     
     private static TableroJuego mtj;
     
     private boolean hayCarta;
     private int cartaSeleccionada;
+    
+    private int vidaJugador, vidaEnemigo;
 
     public ControlEnfrentamiento() {
         
@@ -60,6 +60,10 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
         this.mtj.getCampoAliado().setListeners();
         this.mtj.getCampoEnemigo().addMouseListener(this);
         this.mtj.getCampoEnemigo().setListeners();
+        
+        do{
+            darCartaAJugador();
+        }while(mano.size() <= 2);
     }
     
     /**
@@ -73,31 +77,29 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == mtj.getBotonPasar()){
             
-            generarDanoAliados();
+            generarDano(campoAliado, campoEnemigo);
+            generarDano(campoEnemigo, campoAliado);
             
             colocarCartaEnemiga();
             
-            if (mano.size() < 10){
-                Tarjeta t = mazoJugador.getTarjeta();
-                if (t != null){
-                    mtj.anadirCarta(t.getId());
-                    mano.add(t);
-                }
-            }
+            darCartaAJugador();
         }
     }
     
-    public void generarDanoAliados(){
-        for (int i = 0; i < campoAliado.length; i++){
-            if (campoAliado[i] != null){
+    public void generarDano(Tarjeta[] atacantes, Tarjeta[] objetivos){
+        for (int i = 0; i < atacantes.length; i++){
+            if (atacantes[i] != null){
                 int danoReal = 0;
-                switch (campoAliado[i].getTipoAtaque()){
+                switch (atacantes[i].getTipoAtaque()){
                     case 1 -> {
-                        if(campoEnemigo[i] != null){
+                        if(objetivos[i] == null){
                             danoReal += 1;
                         }
                         else{
-                            campoEnemigo[i].recibirDaño(campoAliado[i].getValorAtaque());
+                            objetivos[i].recibirDaño(atacantes[i].getValorAtaque());
+                            if (objetivos[i].getValorSalud() == 0){
+                                eliminarCarta(atacantes, objetivos, i);
+                            }
                         }
                         break;
                     }
@@ -105,24 +107,63 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                         switch (i){
                             case 0 -> {
                                 for (int j = 0; j < 2; j++){
-                                    if(campoEnemigo[j] != null){
+                                    if(objetivos[j] == null){
                                         danoReal += 1;
                                     }
                                     else{
-                                        campoEnemigo[i].recibirDaño(campoAliado[i].getValorAtaque());
+                                        objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
+                                        if (objetivos[j].getValorSalud() == 0){
+                                            eliminarCarta(atacantes, objetivos, j);
+                                        }
                                     }
                                 }
                                 break;
+                            }
+                            case 4 -> {
+                                for (int j = 3; j < 5; j++){
+                                    if(objetivos[j] == null){
+                                        danoReal += 1;
+                                    }
+                                    else{
+                                        objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
+                                        if (objetivos[j].getValorSalud() == 0){
+                                            eliminarCarta(atacantes, objetivos, j);
+                                        }
+                                    }
+                                }
+                            }
+                            default -> {
+                                for (int j = i-1; j < i+2; j++){
+                                    if(objetivos[j] == null){
+                                        danoReal += 1;
+                                    }
+                                    else{
+                                        objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
+                                        if (objetivos[j].getValorSalud() == 0){
+                                            eliminarCarta(atacantes, objetivos, j);
+                                        }
+                                    }
+                                }
                             }
                         }
                         break;
                     }
                     case 3 -> {
-                        danoReal = 5;
+                        for (int j = 0; j < 5; j++){
+                            if(objetivos[j] == null){
+                                danoReal += 1;
+                            }
+                            else{
+                                objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
+                                if (objetivos[j].getValorSalud() == 0){
+                                    eliminarCarta(atacantes, objetivos, j);
+                                }
+                            }
+                        }
                         break;
                     }
                     case 4 -> {
-                        danoReal = 1;
+                        danoReal += 2;
                         break;
                     }
                 }
@@ -130,19 +171,39 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
         }
     }
     
+    private void eliminarCarta(Tarjeta[] atacantes, Tarjeta[] objetivos, int i){
+        if (atacantes == campoAliado){
+            ((Casilla)mtj.getCampoEnemigo().getComponents()[i]).actualizarSprite(0);
+        }else{
+            ((Casilla)mtj.getCampoAliado().getComponents()[i]).actualizarSprite(0);
+        }
+        System.out.println(objetivos[i].getNombre()+" muere.");
+        objetivos[i] = null;
+    }
+    
     private void colocarCartaEnemiga(){
-        Tarjeta t = mazoEnemigo.getTarjeta();
+        int tarEnCampo = 0;
         
-        int posTar;
+        for (Tarjeta campoEnemigo1 : campoEnemigo){
+            if (campoEnemigo1 != null){
+                tarEnCampo++;
+            }
+        }
         
-        do{
-            Random rng = new Random();
-            posTar = rng.nextInt(0, 5);
-        }while(campoAliado[posTar] != null);
-        
-        campoAliado[posTar] = t;
-        
-        ((Casilla)mtj.getCampoEnemigo().getComponents()[posTar]).actualizarSprite(t.getId());
+        if (tarEnCampo < 5){
+            Tarjeta t = mazoEnemigo.getTarjeta();
+            int posTar;
+
+            do{
+                Random rng = new Random();
+                posTar = rng.nextInt(0, 5);
+            }while(campoEnemigo[posTar] != null);
+
+            if (t != null){
+                campoEnemigo[posTar] = t;
+                ((Casilla)mtj.getCampoEnemigo().getComponents()[posTar]).actualizarSprite(t.getId());
+            }
+        }
     }
 
     /* Detecta Clicks del mouse dentro de diferentes elementos de la GUI*/
@@ -194,6 +255,16 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                     }
                     break;
                 }
+            }
+        }
+    }
+    
+    private void darCartaAJugador(){
+        if (mano.size() < 10){
+            Tarjeta t = mazoJugador.getTarjeta();
+            if (t != null){
+                mtj.anadirCarta(t.getId());
+                mano.add(t);
             }
         }
     }
