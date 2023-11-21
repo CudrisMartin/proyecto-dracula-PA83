@@ -35,7 +35,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
     private boolean hayCarta;
     private int cartaSeleccionada;
     
-    private int vidaJugador, vidaEnemigo;
+    private static int vidaJugador, vidaEnemigo;
 
     public ControlEnfrentamiento() {
         
@@ -46,6 +46,9 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
         this.campoAliado = new Tarjeta[5];
         this.mano = new ArrayList<Tarjeta>();
         this.mtj = new TableroJuego();
+        
+        this.vidaJugador = 50;
+        this.vidaEnemigo = 50;
         
         //Permite la visualización de la GUI
         this.mtj.setVisible(true);
@@ -70,6 +73,9 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        if (vidaJugador <= 50 ||vidaEnemigo <= 50){
+            System.exit(vidaJugador);
+        }
     }
     
     /* Detecta acciones, principalmente botones presionados*/
@@ -87,13 +93,13 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
     }
     
     public void generarDano(Tarjeta[] atacantes, Tarjeta[] objetivos){
+        int danoTotal = 0;
         for (int i = 0; i < atacantes.length; i++){
             if (atacantes[i] != null){
-                int danoReal = 0;
                 switch (atacantes[i].getTipoAtaque()){
                     case 1 -> {
                         if(objetivos[i] == null){
-                            danoReal += 1;
+                            danoTotal += 1;
                         }
                         else{
                             objetivos[i].recibirDaño(atacantes[i].getValorAtaque());
@@ -108,7 +114,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                             case 0 -> {
                                 for (int j = 0; j < 2; j++){
                                     if(objetivos[j] == null){
-                                        danoReal += 1;
+                                        danoTotal += 1;
                                     }
                                     else{
                                         objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
@@ -122,7 +128,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                             case 4 -> {
                                 for (int j = 3; j < 5; j++){
                                     if(objetivos[j] == null){
-                                        danoReal += 1;
+                                        danoTotal += 1;
                                     }
                                     else{
                                         objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
@@ -135,7 +141,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                             default -> {
                                 for (int j = i-1; j < i+2; j++){
                                     if(objetivos[j] == null){
-                                        danoReal += 1;
+                                        danoTotal += 1;
                                     }
                                     else{
                                         objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
@@ -151,7 +157,7 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                     case 3 -> {
                         for (int j = 0; j < 5; j++){
                             if(objetivos[j] == null){
-                                danoReal += 1;
+                                danoTotal += 1;
                             }
                             else{
                                 objetivos[j].recibirDaño(atacantes[i].getValorAtaque());
@@ -163,11 +169,18 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
                         break;
                     }
                     case 4 -> {
-                        danoReal += 2;
+                        danoTotal += 2;
                         break;
                     }
                 }
             }
+        }
+        if (atacantes == campoAliado){
+            vidaEnemigo -= danoTotal;
+            System.out.println("Enemigo sufre "+danoTotal+" puntos de daño.");
+        }else{
+            vidaJugador -= danoTotal;
+            System.out.println("Jugador sufre "+danoTotal+" puntos de daño.");
         }
     }
     

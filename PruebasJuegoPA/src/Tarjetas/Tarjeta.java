@@ -27,7 +27,7 @@ public abstract class Tarjeta implements Interfaces.MetodosCartas {
         if (valorSalud < 0){
             valorSalud = 0;
         }
-        System.out.println(nombre+" recibe "+at+" puntos de ataque y queda con "+valorSalud+" puntos de salud.");
+        //System.out.println(nombre+" recibe "+at+" puntos de ataque y queda con "+valorSalud+" puntos de salud.");
     }
     
     public int getId() {
