@@ -73,9 +73,6 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        if (vidaJugador <= 50 ||vidaEnemigo <= 50){
-            System.exit(vidaJugador);
-        }
     }
     
     /* Detecta acciones, principalmente botones presionados*/
@@ -89,6 +86,11 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
             colocarCartaEnemiga();
             
             darCartaAJugador();
+            
+            if (vidaJugador <= 0 ||vidaEnemigo <= 0){
+                System.out.println("Partida terminada.");
+                mtj.dispose();
+            }
         }
     }
     
@@ -177,10 +179,10 @@ public class ControlEnfrentamiento implements ActionListener, MouseListener{
         }
         if (atacantes == campoAliado){
             vidaEnemigo -= danoTotal;
-            System.out.println("Enemigo sufre "+danoTotal+" puntos de daño.");
+            System.out.println("Enemigo sufre "+danoTotal+" puntos de daño, queda con "+vidaEnemigo+" puntos de vida.");
         }else{
             vidaJugador -= danoTotal;
-            System.out.println("Jugador sufre "+danoTotal+" puntos de daño.");
+            System.out.println("Jugador sufre "+danoTotal+" puntos de daño, queda con "+vidaJugador+" puntos de vida.");
         }
     }
     
