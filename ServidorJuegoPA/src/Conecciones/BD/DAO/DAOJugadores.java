@@ -1,8 +1,8 @@
-package DAO;
+package conecciones.BD.DAO;
+
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,379 +13,243 @@ import java.util.Properties;
 
 public class DAOJugadores {
  
+public String buscarEstadoK_IdJugador(String k_idJugador) {
+    String estado = null;
+    Connection connection = null;
 
-    public String buscarEstadoCedula(String cedula) {
-        String estado = null;
-
+    try {
         // Establecer la conexión a la base de datos
-        String jdbcURL = "jdbc:mysql://localhost:3306/Jurados"; // Asegúrate de que sea la misma URL de la base de datos
-        String usuario = "root"; // Nombre de usuario de MySQL
-        String contraseña = ""; // Contraseña de MySQL
-        Connection connection = null;
+        String jdbcURL = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
+        String usuario = "root";
+        String contraseña = "";
+        connection = DriverManager.getConnection(jdbcURL, usuario, contraseña);
 
+        if (connection != null) {
+            // Consulta SQL para buscar el estado del k_idJugador en la tabla Jugador
+            String consulta = "SELECT Estado FROM Jugador WHERE k_idJugador = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(consulta);
+            preparedStatement.setString(1, k_idJugador);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                estado = resultSet.getString("Estado");
+            }
+        } else {
+            System.out.println("Error al conectar a la base de datos.");
+        }
+    } catch (SQLException e) {
+        // Manejo de excepciones
+    } finally {
         try {
-            connection = DriverManager.getConnection(jdbcURL, usuario, contraseña);
             if (connection != null) {
-                // Consulta SQL para buscar el estado de la cédula en la tabla Usuarios
-                String consulta = "SELECT Estado FROM Usuarios WHERE Cedula = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(consulta);
-                preparedStatement.setString(1, cedula);
-
-                ResultSet resultSet = preparedStatement.executeQuery();
-
-                if (resultSet.next()) {
-                    estado = resultSet.getString("Estado");
-                }
-
-            } else {
-                System.out.println("Error al conectar a la base de datos.");
+                connection.close();
             }
         } catch (SQLException e) {
-
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-
-            }
+            // Manejo de excepciones
         }
-
-        return estado;
     }
+
+    return estado;
+}
+
     
     //En este metodo se crean las dos tablas que se utilizaran
     //la tabla de usuarios y la tabla de exonerados
-    public static void crearTablas() {
-        String jdbcURL = "jdbc:mysql://localhost:3306/Jurados"; // Asegúrate de que sea la misma URL de la base de datos
-        String usuario = "root"; // Nombre de usuario de MySQL
-        String contraseña = ""; // Contraseña de MySQL
-        Connection conexion = null;
-        Statement declaración = null;
+   public static void crearTablas() {
+    String jdbcURL = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
+    String usuario = "root";
+    String contraseña = "";
+    Connection conexion = null;
+    Statement declaración = null;
 
+    try {
+        // Conectar a la base de datos
+        conexion = DriverManager.getConnection(jdbcURL, usuario, contraseña);
+        declaración = conexion.createStatement();
+
+        // Crear la tabla Jugador con las columnas necesarias
+        String sql = "CREATE TABLE Jugador ("
+                + "k_idJugador INT NOT NULL,"
+                + "k_nombre VARCHAR(15) NOT NULL,"
+                + "n_contrasena VARCHAR(8) NOT NULL,"
+                + "n_mazo VARCHAR(30) NOT NULL,"
+                + "q_partidasGan SMALLINT NOT NULL,"
+                + "CONSTRAINT PK_Jugador PRIMARY KEY (k_idJugador, k_nombre),"
+                + "CONSTRAINT UK_n_contrasena UNIQUE (n_contrasena)"
+                + ")";
+        declaración.executeUpdate(sql);
+    } catch (SQLException e) {
+        // Manejo de excepciones
+    } finally {
         try {
-            // Conectar a la base de datos
-            conexion = DriverManager.getConnection(jdbcURL, usuario, contraseña);
-            declaración = conexion.createStatement();
-
-            // Crear la tabla Usuarios con las columnas necesarias para cada propiedad 
-            String sql = "CREATE TABLE Usuarios ("
-                    + "Cedula INT PRIMARY KEY,"
-                    + "Contraseña VARCHAR(50) NOT NULL,"
-                    + "Direccion VARCHAR(50) NOT NULL,"
-                    + "Estado VARCHAR(50) NOT NULL,"
-                    + "Nombre VARCHAR(50) NOT NULL,"
-                    + "Edad INT NOT NULL,"
-                    + "Asistencia VARCHAR(2) DEFAULT 'No',"
-                    + "Justificacion VARCHAR(200)"
-                    + ")"; 
-            String sql2 = "CREATE TABLE Exonerados ("
-                    + "Cedula INT PRIMARY KEY,"
-                    + "Contraseña VARCHAR(50) NOT NULL,"
-                    + "Direccion VARCHAR(50) NOT NULL,"
-                    + "Estado VARCHAR(50) NOT NULL,"
-                    + "Nombre VARCHAR(50) NOT NULL,"
-                    + "Edad INT NOT NULL,"
-                    + "Asistencia VARCHAR(2) DEFAULT 'No',"
-                    + "Justificacion VARCHAR(200)"
-                    + ")";
-            declaración.executeUpdate(sql);
-            declaración.executeUpdate(sql2);
+            if (declaración != null) {
+                declaración.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
         } catch (SQLException e) {
             // Manejo de excepciones
-        } finally {
-            try {
-                if (declaración != null) {
-                    declaración.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                // Manejo de excepciones
-            }
         }
     }
-    
+}
+
     //Este metodo crea la base de datos en caso de que no exista 
 
-    public static void BDcrear() {
-        boolean existe = validarBD("Jurados");
-        if (existe == false) {
-            String url = "jdbc:mysql://localhost:3306/"; // URL de conexión a MySQL
-            String usuario = "root"; // Nombre de usuario de MySQL
-            String contraseña = ""; // Contraseña de MySQL
-            String nombreBaseDatos = "Jurados"; // Nombre de la nueva base de datos
+public static boolean validarBD(String nombreBD) {
+    boolean existeBD = false;
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
 
-            Connection conexion = null;
-            Statement statement = null;
+    try {
+        conn = DriverManager.getConnection("jdbc:mysql://localhost/mysql?useSSL=false", "root", "");
+        if (conn != null) {
+            String sql = "SHOW DATABASES LIKE ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nombreBD);
 
-            try {
-                
-                conexion = DriverManager.getConnection(url, usuario, contraseña);
+            rs = stmt.executeQuery();
 
-                // Crear la base de datos
-                statement = conexion.createStatement();
-                String sql = "CREATE DATABASE " + nombreBaseDatos;
-                statement.executeUpdate(sql);
-
-                crearTablas();
-                cargar();
-
-            } catch (SQLException e) {
-
-            } finally {
-                try {
-                    if (statement != null) {
-                        statement.close();
-                    }
-                    if (conexion != null) {
-                        conexion.close();
-                    }
-                } catch (SQLException e) {
-
-                }
-            }
-        }
-
-    }
-    
-    //Este método valida la existencia de la base de datos.
-
-    public static boolean validarBD(String nombreBD) {
-        boolean existeBD = false;
-        Connection conn = null;
-        try {
-            // Conexión a la base de datos "mysql" en XAMPP
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/mysql?useSSL=false", "root", "");
-            Statement stmt = conn.createStatement();
-            // Buscar si la base de datos existe
-            ResultSet rs = stmt.executeQuery("SHOW DATABASES LIKE '" + nombreBD + "'");
-            // Si encuentra la base de datos, entonces existe
             if (rs.next()) {
+                // Si encuentra una coincidencia con el nombre de la base de datos, establece existeBD a true
                 existeBD = true;
             }
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-
-            }
         }
-        return existeBD;
-    }
-    
-    //Este metodo carga el archivo properties para tener usuarios en la tabla para consultar
-
-    public static void cargar() {
-        String archivoPropiedades = "./src/Docs/JudgesProperties.properties";
-        Properties propiedades = new Properties();
-        Connection conn = null;
-        Statement stmt = null;
-
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        // Cerrar recursos en el bloque finally
         try {
-            FileInputStream in = new FileInputStream(archivoPropiedades);
-            propiedades.load(in);
-            in.close();
-        } catch (IOException e) {
-
-        }
-
-        String url = "jdbc:mysql://localhost:3306/Jurados";
-        String usuario = "root";
-        String contrasena = ""; // Sin contraseña en este caso
-
-        try {
-            conn = DriverManager.getConnection(url, usuario, contrasena);
-            stmt = conn.createStatement();
-
-            int juezCount = 1; // Comienza con el primer juez
-            while (true) {
-                String juezKey = "juez" + juezCount;
-                String cedula = propiedades.getProperty(juezKey + ".cedula");
-                if (cedula == null) {
-                    // Si no hay más usuarios en el archivo de propiedades, sal del bucle
-                    break;
-                }
-
-                // Verificar si la cedula ya existe en la tabla
-                String verificarCedulaSql = "SELECT Cedula FROM Usuarios WHERE Cedula = '" + cedula + "'";
-                boolean cedulaExistente = false;
-
-                // Ejecutar la consulta
-                ResultSet resultSet = stmt.executeQuery(verificarCedulaSql);
-                if (resultSet.next()) {
-                    cedulaExistente = true;
-                    break;
-                }
-                resultSet.close();
-
-                if (!cedulaExistente) {
-                    // Realizar la inserción solo si la cedula no existe
-                    String contras = propiedades.getProperty(juezKey + ".contraseña");
-                    String direccion = propiedades.getProperty(juezKey + ".direccion");
-                    String estado = propiedades.getProperty(juezKey + ".estado");
-                    String nombre = propiedades.getProperty(juezKey + ".nombre");
-                    String edad = propiedades.getProperty(juezKey + ".edad");
-
-                    String sql = "INSERT INTO Usuarios (Cedula, Contraseña, Direccion, Estado, Nombre, Edad) VALUES "
-                            + "('" + cedula + "', '" + contras + "', '" + direccion + "', '" + estado + "', '" + nombre + "', " + edad + ")";
-
-                    stmt.executeUpdate(sql);
-
-                }
-                juezCount++;
-                if (juezCount == 16) {
-                    break;
-                }
+            if (rs != null) {
+                rs.close();
             }
-        } catch (SQLException e) {
-
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-
+            if (stmt != null) {
+                stmt.close();
             }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
-    
-    //Esste metodo ingresa los jueces que son exonerados a la tabla de exonerados
-    
-    public void actualizarExonerados(String cedula, String justificacion) {
-        String url = "jdbc:mysql://localhost:3306/Jurados";
-        String usuario = "root"; // Nombre de usuario de MySQL
-        String contras = ""; // Contraseña de MySQL
-        Connection conexion = null;
-        PreparedStatement statement = null;
+    return existeBD;
+}
 
+
+//Este metodo nos ayuda a agregar un jugador nuevo
+public void inscribirJugador(String nombre, String contrasena, String mazo) {
+    String jdbcURL = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
+    String usuario = "root";
+    String contraseña = "";
+    Connection conexion = null;
+    PreparedStatement preparedStatement = null;
+
+    try {
+        conexion = DriverManager.getConnection(jdbcURL, usuario, contraseña);
+
+        if (conexion != null) {
+            // Consulta para obtener el siguiente ID de jugador
+            String obtenerSiguienteID = "SELECT MAX(k_idJugador) FROM Jugador";
+            Statement statement = conexion.createStatement();
+            ResultSet resultSet = statement.executeQuery(obtenerSiguienteID);
+
+            int siguienteID = 1; // Valor por defecto si no hay jugadores aún
+            if (resultSet.next()) {
+                siguienteID = resultSet.getInt(1) + 1;
+            }
+
+            // Consulta SQL para insertar un nuevo jugador en la tabla Jugador
+            String consulta = "INSERT INTO Jugador (k_idJugador, k_nombre, n_contrasena, n_mazo) VALUES (?, ?, ?, ?)";
+            preparedStatement = conexion.prepareStatement(consulta);
+            preparedStatement.setInt(1, siguienteID);
+            preparedStatement.setString(2, nombre);
+            preparedStatement.setString(3, contrasena);
+            preparedStatement.setString(4, mazo);
+
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("¡Te has inscrito correctamente!");
+            } else {
+                System.out.println("Error al inscribir al jugador.");
+            }
+        } else {
+            System.out.println("Error al conectar a la base de datos.");
+        }
+    } catch (SQLException e) {
+        // Manejo de excepciones
+        e.printStackTrace();
+    } finally {
         try {
-            // Establecer la conexión a la base de datos
-            conexion = DriverManager.getConnection(url, usuario, contras);
-
-            // Definir la consulta SQL parametrizada
-            String sql = "INSERT INTO Exonerados (Cedula, Contraseña, Direccion, Estado, Nombre, Edad, Asistencia, Justificacion) " +
-                         "SELECT Cedula, Contraseña, Direccion, Estado, Nombre, Edad, 'No', ? FROM Usuarios WHERE Cedula = ?";
-
-            // Preparar la declaración SQL
-            statement = conexion.prepareStatement(sql);
-
-            // Establecer los parámetros en la consulta
-            statement.setString(1, justificacion);
-            statement.setString(2, cedula);
-
-            // Ejecutar la consulta para insertar en la tabla Exonerados
-            statement.executeUpdate();
-            
-            eliminarUsuarios(cedula);
-            
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
         } catch (SQLException e) {
             // Manejo de excepciones
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                // Manejo de excepciones
-            }
+            e.printStackTrace();
         }
     }
+}
 
-   public void actualizarAsistenciaYJustificacion(String cedula, String asistencia, String justificacion) {
-        String url = "jdbc:mysql://localhost:3306/Jurados";
-        String usuario = "root";
-        String contras = ""; 
-        Connection conexion = null;
-        PreparedStatement statement = null;
+//Este metodo nos ayuda a obtener la informacion de un jugador
+public void obtenerInformacionJugador(int idJugador) {
+    String jdbcURL = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
+    String usuario = "root";
+    String contraseña = "";
+    Connection conexion = null;
+    PreparedStatement preparedStatement = null;
 
-        try {
-            // Establecer la conexión a la base de datos
-            conexion = DriverManager.getConnection(url, usuario, contras);
+    try {
+        conexion = DriverManager.getConnection(jdbcURL, usuario, contraseña);
 
-            // Definir la consulta SQL parametrizada para actualizar la tabla de Usuarios
-            String sql = "UPDATE Usuarios SET Asistencia = ?, Justificacion = ? WHERE Cedula = ?";
+        if (conexion != null) {
+            // Consulta para obtener la información del jugador con el ID proporcionado
+            String consulta = "SELECT * FROM Jugador WHERE k_idJugador = ?";
+            preparedStatement = conexion.prepareStatement(consulta);
+            preparedStatement.setInt(1, idJugador);
 
-            // Preparar la declaración SQL
-            statement = conexion.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Convertir el valor de asistencia a "Sí" si es "1" y configurar la justificación correspondiente
-            if ("1".equals(asistencia)) {
-                asistencia = "Sí";
-            } else if ("No".equals(asistencia) && justificacion != null) {
-                // Si la asistencia es "No" y la justificación no es nula, entonces el usuario se exoneró
-                actualizarExonerados(cedula, justificacion);
+            if (resultSet.next()) {
+                int id = resultSet.getInt("k_idJugador");
+                String nombre = resultSet.getString("k_nombre");
+                String contrasena = resultSet.getString("n_contrasena");
+                String mazo = resultSet.getString("n_mazo");
+                int partidasGanadas = resultSet.getInt("q_partidasGan");
+
+                // Aquí puedes imprimir o utilizar la información como desees
+                System.out.println("ID: " + id);
+                System.out.println("Nombre: " + nombre);
+                System.out.println("Contraseña: " + contrasena);
+                System.out.println("Mazo: " + mazo);
+                System.out.println("Partidas Ganadas: " + partidasGanadas);
+            } else {
+                System.out.println("No se encontró al jugador con ID " + idJugador);
             }
-
-            // Establecer los parámetros en la consulta preparada
-            statement.setString(1, asistencia);
-            statement.setString(2, justificacion);
-            statement.setString(3, cedula);
-
-            // Ejecutar la consulta para actualizar el registro en la tabla Usuarios
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            // Manejo de excepciones en caso de error al ejecutar la consulta
-        } finally {
-            try {
-                // Cerrar la declaración y la conexión en el bloque finally
-                if (statement != null) {
-                    statement.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                // Manejo de excepciones en caso de error al cerrar la declaración o la conexión
-            }
+        } else {
+            System.out.println("Error al conectar a la base de datos.");
         }
-    }
-
-   //Este metodo permite eliminar usuarios de la tabla de Jurados a partir de consultar su cedula 
-    public void eliminarUsuarios(String cedula) {
-        String url = "jdbc:mysql://localhost:3306/Jurados"; // Asegúrate de que sea la misma URL de la base de datos
-        String usuario = "root"; // Nombre de usuario de MySQL
-        String contras = ""; // Contraseña de MySQL
-        Connection conexion = null;
-        PreparedStatement eliminarStatement = null;
-
+    } catch (SQLException e) {
+        // Manejo de excepciones
+        e.printStackTrace();
+    } finally {
         try {
-            // Establecer la conexión a la base de datos
-            conexion = DriverManager.getConnection(url, usuario, contras);
-
-            // Definir la consulta SQL parametrizada para eliminar al usuario de la tabla Usuarios
-            String eliminarUsuarioSql = "DELETE FROM Usuarios WHERE Cedula = ?";
-            eliminarStatement = conexion.prepareStatement(eliminarUsuarioSql);
-            eliminarStatement.setString(1, cedula);
-            eliminarStatement.executeUpdate();
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
         } catch (SQLException e) {
             // Manejo de excepciones
-        } finally {
-            try {
-                if (eliminarStatement != null) {
-                    eliminarStatement.close();
-                }
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-            }
+            e.printStackTrace();
         }
     }
-
+}
 }
