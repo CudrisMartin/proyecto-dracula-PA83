@@ -14,28 +14,9 @@ package Modelos.Tarjetas;
 public class CampoCompleto extends Tarjeta {
     
     /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
-    public CampoCompleto(int i){
-        this.tipoAtaque = 3;
+    public CampoCompleto(char i){
+        super(i);
         
-        switch (i){
-            case 2 ->{
-                this.id = 2;
-                this.nombre = "Ruidolf";
-                this.valorAtaque = 10;
-                this.valorDefensa = 25;
-                this.valorMagia = 25;
-                this.valorSalud = 40;
-                break;
-            }
-            case 17 ->{
-                this.id = 17;
-                this.nombre = "DragonThor";
-                this.valorAtaque = 5;
-                this.valorDefensa = 25;
-                this.valorMagia = 30;
-                this.valorSalud = 40;
-                break;
-            }
-        }
+        this.tipoAtaque = 3;
     }
 }

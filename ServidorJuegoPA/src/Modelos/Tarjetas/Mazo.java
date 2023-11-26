@@ -22,6 +22,29 @@ public class Mazo {
     
     private Random rng = new Random();
     
+    public Mazo(String mazoJugador){
+        for (int i = 0; i < mazoJugador.length(); i++){
+            contenidoMazo.add(crearTarjeta(mazoJugador.charAt(i)));
+        }
+       tamanoMazo = contenidoMazo.size();
+    }
+    
+    private Tarjeta crearTarjeta(char i){
+        Tarjeta t = null;
+        
+        if (i == 'G' || i == 'H'){
+            t = new TripleLinea(i);
+        }else if (i == 'B' || i == 'Q'){
+            t = new CampoCompleto(i);
+        }else if (i == 'M' || i == 'R'){
+            t = new Directo(i);
+        }else{
+            t = new DeFrente(i);
+        }
+        
+        return t;
+    }
+    
     /* Toma una tarjeta del mazo pseudoaleatoriamente */
     public Tarjeta getTarjeta(){
         Tarjeta t = null;

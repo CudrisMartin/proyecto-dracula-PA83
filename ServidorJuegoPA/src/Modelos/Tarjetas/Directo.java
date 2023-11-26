@@ -14,28 +14,9 @@ package Modelos.Tarjetas;
 public class Directo extends Tarjeta{
     
     /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
-    public Directo(int i){
-        this.tipoAtaque = 4;
+    public Directo(char i){
+        super(i);
         
-        switch (i){
-            case 13 ->{
-                this.id = 13;
-                this.nombre = "Invisible";
-                this.valorAtaque = 5;
-                this.valorDefensa = 25;
-                this.valorMagia = 40;
-                this.valorSalud = 30;
-                break;
-            }
-            case 18 ->{
-                this.id = 18;
-                this.nombre = "Fantasmario";
-                this.valorAtaque = 10;
-                this.valorDefensa = 35;
-                this.valorMagia = 20;
-                this.valorSalud = 35;
-                break;
-            }
-        }
+        this.tipoAtaque = 4;
     }
 }

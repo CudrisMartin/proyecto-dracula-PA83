@@ -13,28 +13,9 @@ package Modelos.Tarjetas;
 public class TripleLinea extends Tarjeta {
     
     /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
-    public TripleLinea(int i){
-        this.tipoAtaque = 2;
+    public TripleLinea(char i){
+        super(i);
         
-        switch (i){
-            case 7 ->{
-                this.id = 7;
-                this.nombre = "Hydracall";
-                this.valorAtaque = 20;
-                this.valorDefensa = 20;
-                this.valorMagia = 30;
-                this.valorSalud = 30;
-                break;
-            }
-            case 8 ->{
-                this.id = 8;
-                this.nombre = "Tubedusa";
-                this.valorAtaque = 20;
-                this.valorDefensa = 25;
-                this.valorMagia = 30;
-                this.valorSalud = 25;
-                break;
-            }
-        }
+        this.tipoAtaque = 2;
     }
 }

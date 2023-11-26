@@ -28,7 +28,9 @@ public class ControlJuego{
     /*
         Constructor llamado para el primer turno del juego.
     */
-    public ControlJuego(Mazo mazoJugador) {
+    public ControlJuego(String mazoJugador) {
+        
+        
         
         //Genera objetos necesarios para el transcurso de la partida
         this.mazoJugador = mazoJugador;

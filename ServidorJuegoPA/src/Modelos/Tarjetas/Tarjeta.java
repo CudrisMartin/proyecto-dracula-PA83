@@ -4,6 +4,10 @@
  */
 package Modelos.Tarjetas;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
 /**
  *
  * @author Marti
@@ -19,6 +23,26 @@ public abstract class Tarjeta implements Interfaces.MetodosCartas {
     protected int valorDefensa;
     protected int valorMagia;
     protected int tipoAtaque;
+    
+    public Tarjeta(char id) {
+        String archivoPropiedades = "./src/Recursos/Tarjetas.properties";
+        Properties propiedades = new Properties();
+        
+        try{
+            FileInputStream in = new FileInputStream(archivoPropiedades);
+            propiedades.load(in);
+            in.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        this.id = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".id"));
+        this.nombre = propiedades.getProperty("Tarjeta"+id+".nombre");
+        this.valorSalud = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorSalud"));
+        this.valorAtaque = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorAtaque"));
+        this.valorDefensa = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorDefensa"));
+        this.valorMagia = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorMagia"));
+    }
     
     /* Reduce la vida de la carta en momento de juego*/
     @Override
