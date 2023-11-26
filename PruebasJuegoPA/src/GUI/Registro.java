@@ -110,6 +110,29 @@ public class Registro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bt_registrarActionPerformed
 
+     private void Txtfield_nombreKeyTyped(java.awt.event.KeyEvent evt) {                                         
+        
+    if(Txtfield_nombre.getText().length() >= 30){
+         JOptionPane.showMessageDialog(null, " el nombre solo puede tener 30 caracteres");
+        evt.consume();
+    }
+
+    }                                                                                        
+
+    private void Jfield_contrasenaKeyTyped(java.awt.event.KeyEvent evt) {                                           
+      if(Jfield_contrasena.getText().length() >= 8){
+           JOptionPane.showMessageDialog(null, " la contraseña solo pueded tener 8 caracteres");
+        evt.consume();
+    }
+    }                                          
+
+    private void Jfield_contrasenaconfirmKeyTyped(java.awt.event.KeyEvent evt) {                                                  
+       if(Jfield_contrasenaconfirm.getText().length() >= 8){
+           JOptionPane.showMessageDialog(null, " la contraseña solo pueded tener 8 caracteres");
+        evt.consume();
+    }
+    }
+    
     /**
      * @param args the command line arguments
      */
