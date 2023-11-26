@@ -106,7 +106,7 @@ public class Registro extends javax.swing.JFrame {
            if(Txtfield_nombre.getText().length()<0 || Jfield_contrasenaconfirm.getText().length()<0 || Jfield_contrasenaconfirm.getText().length()<0 ){
                JOptionPane.showMessageDialog(null, "campos vacios");
            }
-    Usuario prueba = new Usuario(Txtfield_nombre.getText(),Jfield_contrasenaconfirm.getText(),2);
+    Usuario prueba = new Usuario(Txtfield_nombre.getText(),Jfield_contrasenaconfirm.getText(),2,0,"abegh");
         
     }//GEN-LAST:event_bt_registrarActionPerformed
 
