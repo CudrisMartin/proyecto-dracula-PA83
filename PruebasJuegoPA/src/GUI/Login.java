@@ -80,7 +80,7 @@ public class Login extends javax.swing.JFrame {
 
     private void ingresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresaActionPerformed
        
-         Usuario prueba = new Usuario("Juan","password",2);
+         Usuario prueba = new Usuario("Juan","password",2,0,"abgfe");
         
         if( TxtLog_nombre.getText().equals(prueba.getNombre()) && TxtLog_contrasena.getText().equals(prueba.getContraseña()) ){  
             //redireccionar a juego 
