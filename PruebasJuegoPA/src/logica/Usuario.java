@@ -6,15 +6,20 @@ package logica;
  */
 public class Usuario {
     /* el estado es la actividad ( online o offline)*/
-    protected String nombre;
-    protected String contraseña;
-    protected int estado; 
+    /*mazo es conformado por un string ya que cada caracter es una tarjeta del mazo*/
+    private String nombre;
+    private String contrasena;
+    private int estado;
+    private int partidas_ganadas;
+    private String mazo;
     
 
-    public Usuario(String nombre, String contraseña, int estado) {
+   public Usuario(String nombre, String contrasena, int estado, int partidas_ganadas, String mazo) {
         this.nombre = nombre;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.estado = estado;
+        this.partidas_ganadas = partidas_ganadas;
+        this.mazo = mazo;
     }
     
     
@@ -27,12 +32,12 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public int isEstado() {
@@ -42,6 +47,23 @@ public class Usuario {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public int getPartidas_ganadas() {
+        return partidas_ganadas;
+    }
+
+    public void setPartidas_ganadas(int partidas_ganadas) {
+        this.partidas_ganadas = partidas_ganadas;
+    }
+
+    public String getMazo() {
+        return mazo;
+    }
+
+    public void setMazo(String mazo) {
+        this.mazo = mazo;
+    }
+    
     
             
     
