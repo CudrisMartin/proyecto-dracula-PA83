@@ -4,11 +4,14 @@
  */
 package Modelos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marti
  */
-public class Jugador {
+public class Jugador implements Serializable{
+    private static final long serialVersionUID = 12L;
     
     private int idJugador, partidasGanadas;
     private String nombre, contraseña, mazo;

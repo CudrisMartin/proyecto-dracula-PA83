@@ -7,6 +7,7 @@ package Controladores;
 import GUI.Consola;
 import Modelos.Jugador;
 import Modelos.Turno;
+import conecciones.BD.DAO.DAOJugadores;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -28,26 +29,26 @@ public class ControlServer {
     private int puerto;
     private ControlJuego enfrentamiento;
     private boolean bandera = false;
+    private DAOJugadores dao;
     private Consola consola;
     
     public ControlServer(int puerto) {
         this.puerto = puerto;
-        this.enfrentamiento = new ControlJuego();
     }
     
     public void iniciar() throws IOException {
         consola.mostrarMensaje("Iniciando servidor en el puerto " + puerto);
 
         // Validar la existencia de la base de datos
-        /*
-        if (Dao.validarBD("Jurados")) {
-            consola.mostrarMensaje("La base de datos 'Jurados' ya existe.");
+        
+        if (dao.validarBD("PROYECTO_PAA_DRACULA")) {
+            consola.mostrarMensaje("La base de datos 'PROYECTO_PAA_DRACULA' ya existe.");
         } else {
-            consola.mostrarMensaje("La base de datos 'Jurados' no existe. Creándola...");
-            Dao.BDcrear();
-            consola.mostrarMensaje("Base de datos 'Jurados' creada con éxito.");
+            consola.mostrarMensaje("La base de datos 'PROYECTO_PAA_DRACULA' no existe. Creándola...");
+            dao.BDcrear();
+            consola.mostrarMensaje("Base de datos 'PROYECTO_PAA_DRACULA' creada con éxito.");
         }
-        */
+        
 
         // Configuración del ExecutorService para gestionar hilos
         ExecutorService executor = Executors.newFixedThreadPool(100); // 10 hilos para manejar conexiones simultáneas
@@ -70,10 +71,8 @@ public class ControlServer {
 
                         // Envío de mensajes de acuerdo con la información recibida
                         try (DataOutputStream dataOutputStream = new DataOutputStream(cliente.getOutputStream())) {
-                            String mensaje = this.Dao.buscarEstadoCedula(persona.getCedula());
-                            dataOutputStream.writeUTF(mensaje);
-                            if (mensaje.equals("Asignado")) {
-                                Cedula = Jugador.getCedula();
+                            boolean ingresoCorrecto = this.dao.comprobarContraseña(jugador.getNombre(), jugador.getContraseña());
+                            if (ingresoCorrecto) {
                                 
                                 /*Se utiliza una expresión lambda para crear un hilo debido a la necesidad de manejar múltiples conexiones simultáneamente.
                                 *La expresión lambda proporciona una forma concisa de crear una implementación para una interfaz funcional, 
@@ -94,7 +93,7 @@ public class ControlServer {
                                             if (paq instanceof Turno){
                                                 Turno turno = (Turno) paq;
                                                 if (ctrlJuego == null){
-                                                    ctrlJuego = new ControlJuego(turno.getMazoJugador());
+                                                    ctrlJuego = new ControlJuego(jugador.getMazo());
                                                     t = ctrlJuego.primerTurno();
                                                 }
                                             }

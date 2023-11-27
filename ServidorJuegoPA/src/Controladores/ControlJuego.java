@@ -33,7 +33,7 @@ public class ControlJuego{
         
         
         //Genera objetos necesarios para el transcurso de la partida
-        this.mazoJugador = mazoJugador;
+        this.mazoJugador = new Mazo(mazoJugador);
         this.mazoEnemigo = new Mazo();
         this.campoMaquina = new Tarjeta[5];
         this.campoJugador = new Tarjeta[5];

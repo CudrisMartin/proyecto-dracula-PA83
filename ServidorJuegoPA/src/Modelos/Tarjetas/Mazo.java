@@ -20,6 +20,11 @@ public class Mazo {
     private ArrayList<Tarjeta> contenidoMazo;
     private int tamanoMazo;
     
+    private char[] guiaTarjetas= {'A','B','C','D','E',
+                                  'F','G','H','I','J',
+                                  'K','L','M','N','O',
+                                  'P','Q','R','S','T'};
+    
     private Random rng = new Random();
     
     public Mazo(String mazoJugador){
@@ -27,6 +32,33 @@ public class Mazo {
             contenidoMazo.add(crearTarjeta(mazoJugador.charAt(i)));
         }
        tamanoMazo = contenidoMazo.size();
+    }
+    
+    public Mazo(){
+        
+        tamanoMazo = rng.nextInt(10, 20);
+        
+        do{
+            int idCarta = rng.nextInt(1,20);
+            switch (idCarta){
+                case 2, 17 -> {
+                    contenidoMazo.add(new CampoCompleto(guiaTarjetas[idCarta-1]));
+                    break;
+                }
+                case 7, 8 -> {
+                    contenidoMazo.add(new TripleLinea(guiaTarjetas[idCarta-1]));
+                    break;
+                }
+                case 13,18 -> {
+                    contenidoMazo.add(new Directo(guiaTarjetas[idCarta-1]));
+                    break;
+                }
+                default -> {
+                    contenidoMazo.add(new DeFrente(guiaTarjetas[idCarta-1]));
+                    break;
+                }
+            }
+        }while (contenidoMazo.size() < tamanoMazo);
     }
     
     private Tarjeta crearTarjeta(char i){
