@@ -91,7 +91,7 @@ public class casilla extends javax.swing.JFrame {
    public void actualizarSprite(int id,int tipoCasilla){
         this.idTarjeta = id;
         if (id != 0){            
-           this.sprite = new ImageIcon(getClass().getResource("/imagenes/JPD_PA"+idTarjeta+".png"));
+           this.sprite = new ImageIcon(getClass().getResource("/Recursos/Sprites/JPD_PA"+id+".png"));
         }else{
            this.sprite = new ImageIcon(getClass().getResource("/Recursos/Sprites/JPD_PA"+id+"s.png"));
         }
