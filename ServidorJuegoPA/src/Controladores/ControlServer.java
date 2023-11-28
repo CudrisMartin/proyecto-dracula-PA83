@@ -13,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -32,12 +33,18 @@ public class ControlServer {
     private DAOJugadores dao;
     private Consola consola;
     
-    public ControlServer(int puerto) {
+    InetAddress direccion;
+    
+    public ControlServer(int puerto) throws IOException {
+        
+        this.direccion = InetAddress.getLocalHost();
         this.puerto = puerto;
+        this.consola = new Consola();
+        iniciar();
     }
     
     public void iniciar() throws IOException {
-        consola.mostrarMensaje("Iniciando servidor en el puerto " + puerto);
+        consola.mostrarMensaje("Iniciando servidor en el puerto " + puerto+" Dirección IP: "+direccion.toString());
 
         // Validar la existencia de la base de datos
         
