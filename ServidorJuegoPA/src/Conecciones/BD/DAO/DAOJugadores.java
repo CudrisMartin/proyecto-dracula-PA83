@@ -9,26 +9,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import Conecciones.BD.ConectorBD;
 
 public class DAOJugadores {
     
-    private static ConectorBD cn;
-    
-    public DAOJugadores() {
-        this.cn = new ConectorBD();
-    }
-    
     public static void BDcrear() {
-        boolean existe = validarBD("Jurados");
-        String nombreBaseDatos = "PROYECTO_PAA_DRACULA";
+        boolean existe = validarBD("PROYECTO_PAA_DRACULA");
+        
         if (existe == false) {
-
-            Connection conexion = cn.getConexion();
+            String url = "jdbc:mysql://localhost:3306/"; // URL de conexión a MySQL
+            String usuario = "root"; // Nombre de usuario de MySQL
+            String contraseña = ""; // Contraseña de MySQL
+            String nombreBaseDatos = "PROYECTO_PAA_DRACULA";
+            
+            Connection conexion = null;
             Statement statement = null;
 
             try {
-
+                conexion = DriverManager.getConnection(url, usuario, contraseña);
                 // Crear la base de datos
                 statement = conexion.createStatement();
                 String sql = "CREATE DATABASE " + nombreBaseDatos;
@@ -58,7 +55,10 @@ public class DAOJugadores {
     //la tabla de usuarios y la tabla de exonerados
     public static void crearTablas() {
 
-        Connection conexion = cn.getConexion();
+        String jdbcURL = "jdbc:mysql://localhost:3306/Jurados"; // Asegúrate de que sea la misma URL de la base de datos
+        String usuario = "root"; // Nombre de usuario de MySQL
+        String contraseña = ""; // Contraseña de MySQL
+        Connection conexion = null;
         Statement declaración = null;
 
         try {
@@ -97,39 +97,28 @@ public class DAOJugadores {
 
     public static boolean validarBD(String nombreBD) {
         boolean existeBD = false;
-        Connection conn = cn.getConexion();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
+        Connection conn = null;
         try {
-            if (conn != null) {
-                String sql = "SHOW DATABASES LIKE ?";
-                stmt = conn.prepareStatement(sql);
-                stmt.setString(1, nombreBD);
-
-                rs = stmt.executeQuery();
-
-                if (rs.next()) {
-                    // Si encuentra una coincidencia con el nombre de la base de datos, establece existeBD a true
-                    existeBD = true;
-                }
+            // Conexión a la base de datos "mysql" en XAMPP
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/mysql?useSSL=false", "root", "");
+            Statement stmt = conn.createStatement();
+            // Buscar si la base de datos existe
+            ResultSet rs = stmt.executeQuery("SHOW DATABASES LIKE '" + nombreBD + "'");
+            // Si encuentra la base de datos, entonces existe
+            if (rs.next()) {
+                existeBD = true;
             }
+            rs.close();
+            stmt.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+
         } finally {
-            // Cerrar recursos en el bloque finally
             try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                ex.printStackTrace();
+
             }
         }
         return existeBD;
@@ -138,11 +127,14 @@ public class DAOJugadores {
 
     //Este metodo nos ayuda a agregar un jugador nuevo
     public void inscribirJugador(String nombre, String contrasena, String mazo) {
-        Connection conexion = cn.getConexion();
+        String jdbcURL = "jdbc:mysql://localhost:3306/Jurados"; // Asegúrate de que sea la misma URL de la base de datos
+        String usuario = "root"; // Nombre de usuario de MySQL
+        String contraseña = ""; // Contraseña de MySQL
+        Connection conexion = null;
         PreparedStatement preparedStatement = null;
 
         try {
-
+            conexion = DriverManager.getConnection(jdbcURL, usuario, contraseña);
             if (conexion != null) {
                 // Consulta para obtener el siguiente ID de jugador
                 String obtenerSiguienteID = "SELECT MAX(k_idJugador) FROM Jugador";
@@ -193,11 +185,15 @@ public class DAOJugadores {
 //Este metodo nos ayuda a obtener la informacion de un jugador
     public void obtenerInformacionJugador(int idJugador) {
 
-        Connection conexion = cn.getConexion();
+        String url = "jdbc:mysql://localhost:3306/Jurados";
+        String usuario = "root";
+        String contras = ""; 
+        Connection conexion = null;
         PreparedStatement preparedStatement = null;
 
         try {
             if (conexion != null) {
+                conexion = DriverManager.getConnection(url, usuario, contras);
                 // Consulta para obtener la información del jugador con el ID proporcionado
                 String consulta = "SELECT * FROM Jugador WHERE k_idJugador = ?";
                 preparedStatement = conexion.prepareStatement(consulta);
@@ -244,12 +240,18 @@ public class DAOJugadores {
     
     public boolean comprobarContraseña(String nombreJugador, String contraseña) {
 
-        Connection conexion = cn.getConexion();
+        String url = "jdbc:mysql://localhost:3306/Jurados";
+        String usuario = "root";
+        String contras = ""; 
+        Connection conexion = null;
         PreparedStatement preparedStatement = null;
         
         boolean respuesta = false;
         
         try {
+            
+            conexion = DriverManager.getConnection(url, usuario, contras);
+            
             if (conexion != null) {
                 // Consulta para obtener la información del jugador con el ID proporcionado
                 String consulta = "SELECT * FROM Jugador WHERE k_nombre = ?";
