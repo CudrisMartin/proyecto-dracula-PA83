@@ -17,7 +17,7 @@ public class Launcher {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new ControlEnfrentamiento();
+        new ControlGeneral("192.168.10.15", 4500);
     }
     
 }

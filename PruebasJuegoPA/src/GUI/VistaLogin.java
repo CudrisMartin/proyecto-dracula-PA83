@@ -4,18 +4,16 @@
  */
 package GUI;
 
-import logica.Usuario;
-
 /**
  *
  * @author Andro
  */
-public class Login extends javax.swing.JFrame {
+public class VistaLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public VistaLogin() {
         initComponents();
     }
 
@@ -60,6 +58,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(TxtLog_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 220, 30));
+
+        TxtLog_contrasena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtLog_contrasenaActionPerformed(evt);
+            }
+        });
         getContentPane().add(TxtLog_contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 220, 30));
 
         ingresa.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -79,20 +83,16 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ingresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresaActionPerformed
-       
-         Usuario prueba = new Usuario("Juan","password",2,0,"abgfe");
-        
-        if( TxtLog_nombre.getText().equals(prueba.getNombre()) && TxtLog_contrasena.getText().equals(prueba.getContraseña()) ){  
-            //redireccionar a juego 
-            }
-        
-        
-        
+    
     }//GEN-LAST:event_ingresaActionPerformed
 
     private void TxtLog_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLog_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtLog_nombreActionPerformed
+
+    private void TxtLog_contrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtLog_contrasenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtLog_contrasenaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,29 +111,30 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new VistaLogin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField TxtLog_contrasena;
-    private javax.swing.JTextField TxtLog_nombre;
+    public javax.swing.JPasswordField TxtLog_contrasena;
+    public javax.swing.JTextField TxtLog_nombre;
     private javax.swing.JLabel fondo;
-    private javax.swing.JButton ingresa;
+    public javax.swing.JButton ingresa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
