@@ -40,6 +40,7 @@ public class ControlServer {
         this.direccion = InetAddress.getLocalHost();
         this.puerto = puerto;
         this.consola = new Consola();
+        this.dao = new DAOJugadores();
         iniciar();
     }
     
@@ -67,80 +68,104 @@ public class ControlServer {
             while (true) {
                 Socket cliente = serverSocket.accept();
                 consola.mostrarMensaje("Jugador conectado desde " + cliente.getInetAddress());
-
+                 
                 // Manejo del flujo de entrada de objetos
                 try (ObjectInputStream objectInputStream = new ObjectInputStream(cliente.getInputStream())) {
                     Object obj = objectInputStream.readObject();
                     if (obj instanceof Jugador) {
                         Jugador jugador = (Jugador) obj;
-                        consola.mostrarMensaje("Jugador ingresa en el servidor: " + jugador);
-                        //consola.mostrarMensaje(this.Dao.buscarEstadoCedula(persona.getCedula()));
-
+                        if (jugador.getIdJugador() == 1){
                         // Envío de mensajes de acuerdo con la información recibida
-                        try (DataOutputStream dataOutputStream = new DataOutputStream(cliente.getOutputStream())) {
-                            boolean ingresoCorrecto = this.dao.comprobarContraseña(jugador.getNombre(), jugador.getContraseña());
-                            if (ingresoCorrecto) {
+                            try (DataOutputStream dataOutputStream = new DataOutputStream(cliente.getOutputStream())) {
                                 
-                                /*Se utiliza una expresión lambda para crear un hilo debido a la necesidad de manejar múltiples conexiones simultáneamente.
-                                *La expresión lambda proporciona una forma concisa de crear una implementación para una interfaz funcional, 
-                                que en este caso es la interfaz Runnable.*/
+                                boolean existeJugador = this.dao.comprobarJugador(jugador.getNombre());
                                 
-                                new Thread(() -> {
-                                    try (ServerSocket soc = new ServerSocket(3333)) {
-                                        consola.mostrarMensaje("Nuevo enfrentamiento ubicado en el puerto 3333");
-                                        
-                                        ControlJuego ctrlJuego = null;
-                                        
-                                        while (true) {
-                                            Socket jugEnPart = soc.accept();
-                                            ObjectInputStream ObjectInputStream = new ObjectInputStream(jugEnPart.getInputStream());
-                                            Object paq = ObjectInputStream.readObject();
-                                            Turno t = null;
-                                            
-                                            if (paq instanceof Turno){
-                                                Turno turno = (Turno) paq;
-                                                if (ctrlJuego == null){
-                                                    ctrlJuego = new ControlJuego(jugador.getMazo());
-                                                    t = ctrlJuego.primerTurno();
-                                                }
-                                            }
-                                            
-                                            boolean turEnv = false;
-                                            
-                                            do{
-                                                try(ObjectOutputStream ObOuSt = new ObjectOutputStream(cliente.getOutputStream())){
-                                                    ObOuSt.writeObject(t);
-                                                    consola.mostrarMensaje("Turno enviado exitosamente.");
-                                                    turEnv = true;
-                                                }catch (IOException ex) {
-                                                    Logger.getLogger(ControlServer.class.getName()).log(Level.SEVERE, null, ex);
-                                                    consola.mostrarMensaje("Fallo al enviar el turno, reintentando...");
-                                                }
-                                            }while(!turEnv);
-                                            
-                                            if (ctrlJuego.getVidaJugador() == 0 || ctrlJuego.getVidaMaquina() == 0){
-                                                
-                                            }
-                                            
-                                        }
-                                    } catch (IOException e) {
-                                        consola.mostrarMensaje("Error en el servidor 3333: " + e.getMessage());
-                                    } catch (ClassNotFoundException ex) {
-                                        Logger.getLogger(ControlServer.class.getName()).log(Level.SEVERE, null, ex);
+                                if(existeJugador){
+                                    
+                                    boolean ingresoCorrecto = this.dao.comprobarContraseña(jugador.getNombre(), jugador.getContraseña());
+                                    
+                                    if (ingresoCorrecto) {
+                                        dataOutputStream.writeUTF("IngresoCorrecto");
+                                        /*Se utiliza una expresión lambda para crear un hilo debido a la necesidad de manejar múltiples conexiones simultáneamente.
+                                        *La expresión lambda proporciona una forma concisa de crear una implementación para una interfaz funcional, 
+                                        que en este caso es la interfaz Runnable.*/
+                                        accederServidor(cliente,jugador);
+
+                                    }else{
+                                        dataOutputStream.writeUTF("ContraseñaIncorrecta");
                                     }
-                                }).start();
+                                }else{
+                                    dataOutputStream.writeUTF("RegistrarUsuario");
+                                }
+                            } catch (Exception ex) {
+                                consola.mostrarMensaje(ex.getMessage());
                             }
-                        } catch (IOException ex) {
-                            consola.mostrarMensaje("Error al enviar el mensaje.");
+                        }else if (jugador.getIdJugador() == 0){
+                            // Envío de mensajes de acuerdo con la información recibida
+                            try (DataOutputStream dataOutputStream = new DataOutputStream(cliente.getOutputStream())) {
+
+                                this.dao.inscribirJugador(jugador.getNombre(), jugador.getContraseña(), "");
+                                dataOutputStream.writeUTF("RegistroCorrecto");
+                                
+                            } catch (Exception ex) {
+                                consola.mostrarMensaje(ex.getMessage());
+                            }
                         }
                     }
-                } catch (IOException | ClassNotFoundException ex) {
-                    consola.mostrarMensaje("Error al recibir el objeto Persona.");
+                } catch (Exception ex) {
+                    consola.mostrarMensaje(ex.getMessage());
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             consola.mostrarMensaje("Error en el servidor: " + e.getMessage());
         }
+    }
+    
+    private void accederServidor(Socket cliente, Jugador jugador){
+        new Thread(() -> {
+            try (ServerSocket soc = new ServerSocket(3333)) {
+                consola.mostrarMensaje("Nuevo enfrentamiento ubicado en el puerto 3333");
+
+                ControlJuego ctrlJuego = null;
+
+                while (true) {
+                    Socket jugEnPart = soc.accept();
+                    ObjectInputStream ObjectInputStream = new ObjectInputStream(jugEnPart.getInputStream());
+                    Object paq = ObjectInputStream.readObject();
+                    Turno t = null;
+
+                    if (paq instanceof Turno){
+                        Turno turno = (Turno) paq;
+                        if (ctrlJuego == null){
+                            ctrlJuego = new ControlJuego(jugador.getMazo());
+                            t = ctrlJuego.primerTurno();
+                        }
+                    }
+
+                    boolean turEnv = false;
+
+                    do{
+                        try(ObjectOutputStream ObOuSt = new ObjectOutputStream(cliente.getOutputStream())){
+                            ObOuSt.writeObject(t);
+                            consola.mostrarMensaje("Turno enviado exitosamente.");
+                            turEnv = true;
+                        }catch (IOException ex) {
+                            Logger.getLogger(ControlServer.class.getName()).log(Level.SEVERE, null, ex);
+                            consola.mostrarMensaje("Fallo al enviar el turno, reintentando...");
+                        }
+                    }while(!turEnv);
+
+                    if (ctrlJuego.getVidaJugador() == 0 || ctrlJuego.getVidaMaquina() == 0){
+
+                    }
+
+                }
+            } catch (IOException e) {
+                consola.mostrarMensaje("Error en el servidor 3333: " + e.getMessage());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ControlServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).start();
     }
     
     /**

@@ -44,7 +44,7 @@ public class DAOJugadores {
                         conexion.close();
                     }
                 } catch (SQLException e) {
-
+                    System.out.println(e.getMessage());
                 }
             }
         }
@@ -55,7 +55,7 @@ public class DAOJugadores {
     //la tabla de usuarios y la tabla de exonerados
     public static void crearTablas() {
 
-        String jdbcURL = "jdbc:mysql://localhost:3306/Jurados"; // Asegúrate de que sea la misma URL de la base de datos
+        String jdbcURL = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA"; // Asegúrate de que sea la misma URL de la base de datos
         String usuario = "root"; // Nombre de usuario de MySQL
         String contraseña = ""; // Contraseña de MySQL
         Connection conexion = null;
@@ -63,6 +63,7 @@ public class DAOJugadores {
 
         try {
             // Conectar a la base de datos
+            conexion = DriverManager.getConnection(jdbcURL, usuario, contraseña);
 
             declaración = conexion.createStatement();
 
@@ -71,8 +72,8 @@ public class DAOJugadores {
                     + "k_idJugador INT NOT NULL,"
                     + "k_nombre VARCHAR(15) NOT NULL,"
                     + "n_contrasena VARCHAR(8) NOT NULL,"
-                    + "n_mazo VARCHAR(30) NOT NULL,"
-                    + "q_partidasGan SMALLINT NOT NULL,"
+                    + "n_mazo VARCHAR(30) NOT NULL DEFAULT '',"
+                    + "q_partidasGan SMALLINT NOT NULL DEFAULT 0,"
                     + "CONSTRAINT PK_Jugador PRIMARY KEY (k_idJugador, k_nombre),"
                     + "CONSTRAINT UK_n_contrasena UNIQUE (n_contrasena)"
                     + ")";
@@ -127,7 +128,7 @@ public class DAOJugadores {
 
     //Este metodo nos ayuda a agregar un jugador nuevo
     public void inscribirJugador(String nombre, String contrasena, String mazo) {
-        String jdbcURL = "jdbc:mysql://localhost:3306/Jurados"; // Asegúrate de que sea la misma URL de la base de datos
+        String jdbcURL = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA"; // Asegúrate de que sea la misma URL de la base de datos
         String usuario = "root"; // Nombre de usuario de MySQL
         String contraseña = ""; // Contraseña de MySQL
         Connection conexion = null;
@@ -240,7 +241,7 @@ public class DAOJugadores {
     
     public boolean comprobarContraseña(String nombreJugador, String contraseña) {
 
-        String url = "jdbc:mysql://localhost:3306/Jurados";
+        String url = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
         String usuario = "root";
         String contras = ""; 
         Connection conexion = null;
@@ -269,6 +270,56 @@ public class DAOJugadores {
                     
                 } else {
                     System.out.println("No se encontró al jugador con nombre " + nombreJugador);
+                }
+            } else {
+                System.out.println("Error al conectar a la base de datos.");
+            }
+        } catch (SQLException e) {
+            // Manejo de excepciones
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                // Manejo de excepciones
+                e.printStackTrace();
+            }
+            return respuesta;
+        }
+    }
+    
+    public boolean comprobarJugador(String nombreJugador) {
+
+        String url = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
+        String usuario = "root";
+        String contras = ""; 
+        Connection conexion = null;
+        PreparedStatement preparedStatement = null;
+        
+        boolean respuesta = false;
+        
+        try {
+            
+            conexion = DriverManager.getConnection(url, usuario, contras);
+            
+            if (conexion != null) {
+                // Consulta para obtener la información del jugador con el ID proporcionado
+                String consulta = "SELECT * FROM Jugador WHERE k_nombre = ?";
+                preparedStatement = conexion.prepareStatement(consulta);
+                preparedStatement.setString(1, nombreJugador);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    respuesta = true;
+                    
+                } else {
+                    respuesta = false;
                 }
             } else {
                 System.out.println("Error al conectar a la base de datos.");
