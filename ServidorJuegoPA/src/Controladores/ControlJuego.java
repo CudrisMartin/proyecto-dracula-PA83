@@ -57,17 +57,27 @@ public class ControlJuego{
 
         darCartaAJugador();
         
-        Turno respuesta = new Turno(this.campoMaquina,
-                            this.campoJugador,
-                            this.mano,
-                            this.vidaJugador,
-                            this.vidaMaquina);
-        return t;
+        int ganador = 0;
+        
+        if (vidaMaquina == 0 && vidaJugador > 0){
+            ganador = 1;
+        }else if (vidaMaquina > 0 && vidaJugador == 0
+                || vidaMaquina == 0 && vidaJugador == 0){
+            ganador = 2;
+        }
+        
+        Turno respuesta = new Turno(campoMaquina,
+                            campoJugador,
+                            mano,
+                            vidaJugador,
+                            vidaMaquina,
+                            ganador);
+        return respuesta;
     }
     
     public Turno primerTurno(){
         colocarCartaMaquina();
-        Turno t = new Turno(this.campoMaquina, this.campoJugador, this.mano, this.vidaJugador, this.vidaMaquina);
+        Turno t = new Turno(this.campoMaquina, this.campoJugador, this.mano, this.vidaJugador, this.vidaMaquina,0);
         return t;
     }
     

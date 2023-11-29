@@ -120,6 +120,15 @@ public class ControlServer {
                                                         Turno respuesta = ctrlJuego.generarTurno(t);
                                                         ObjectOutputStream ObOutStream = new ObjectOutputStream(jugEnPart.getOutputStream());
                                                         ObOutStream.writeObject(respuesta);
+                                                        if (respuesta.getGanador() != 0){
+                                                            if (respuesta.getGanador() == 1){
+                                                                consola.mostrarMensaje("Gana jugador");
+                                                            }else if(respuesta.getGanador() == 2){
+                                                                consola.mostrarMensaje("Gana maquina");
+                                                            }
+                                                            soc.close();
+                                                            break;
+                                                        }
                                                     }
 
                                                 }

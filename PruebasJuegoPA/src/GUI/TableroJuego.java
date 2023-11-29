@@ -59,12 +59,15 @@ public class TableroJuego extends javax.swing.JFrame {
         campoAliado = new GUI.Campo.Campo();
         pasarTurno = new javax.swing.JButton();
         mano = new GUI.Campo.Mano();
+        jLabel1 = new javax.swing.JLabel();
+        lbVidaJugador = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lbVidaMaquina = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(51, 0, 51));
         setForeground(new java.awt.Color(51, 0, 51));
-        setMaximumSize(new java.awt.Dimension(1190, 700));
         setMinimumSize(new java.awt.Dimension(850, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(1190, 700));
@@ -78,6 +81,14 @@ public class TableroJuego extends javax.swing.JFrame {
 
         mano.setLayout(new javax.swing.BoxLayout(mano, javax.swing.BoxLayout.LINE_AXIS));
 
+        jLabel1.setText("Vida jugador");
+
+        lbVidaJugador.setText("jLabel2");
+
+        jLabel2.setText("Vida maquina");
+
+        lbVidaMaquina.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +96,19 @@ public class TableroJuego extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(325, 325, 325)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(lbVidaJugador))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(lbVidaMaquina)))
+                        .addGap(234, 234, 234)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(campoAliado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,7 +124,16 @@ public class TableroJuego extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(campoEnemigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbVidaJugador)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbVidaMaquina))
+                    .addComponent(campoEnemigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -162,6 +194,10 @@ public class TableroJuego extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GUI.Campo.Campo campoAliado;
     private GUI.Campo.Campo campoEnemigo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel lbVidaJugador;
+    public javax.swing.JLabel lbVidaMaquina;
     private GUI.Campo.Mano mano;
     private javax.swing.JButton pasarTurno;
     // End of variables declaration//GEN-END:variables

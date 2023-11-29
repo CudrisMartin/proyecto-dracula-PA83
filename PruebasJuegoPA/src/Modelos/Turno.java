@@ -18,15 +18,16 @@ public class Turno implements Serializable {
     
     private Tarjeta[] campoMaquina, campoJugador;
     private ArrayList<Tarjeta> mano;
-    private int vidaJugador, vidaMaquina;
+    private int vidaJugador, vidaMaquina, ganador;
 
     public Turno(Tarjeta[] campoMaquina, Tarjeta[] campoJugador,
-                 ArrayList<Tarjeta> mano, int vidaJugador, int vidaMaquina) {
+                 ArrayList<Tarjeta> mano, int vidaJugador, int vidaMaquina, int ganador) {
         this.campoMaquina = campoMaquina;
         this.campoJugador = campoJugador;
         this.mano = mano;
         this.vidaJugador = vidaJugador;
         this.vidaMaquina = vidaMaquina;
+        this.ganador = ganador;
     }
 
     public Tarjeta[] getCampoMaquina() {
@@ -49,5 +50,7 @@ public class Turno implements Serializable {
         return vidaMaquina;
     }
     
-    
+    public int getGanador(){
+        return ganador;
+    }
 }

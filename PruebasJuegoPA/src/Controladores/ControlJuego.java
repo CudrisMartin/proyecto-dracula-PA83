@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import java.awt.Component;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,7 +40,7 @@ public class ControlJuego implements ActionListener, MouseListener{
     private boolean permitirClickear;
     private int cartaSeleccionada;
     
-    private static int vidaJugador, vidaMaquina;
+    private int vidaJugador, vidaMaquina;
 
     public ControlJuego(ControlGeneral ctrlGen) {
         
@@ -51,9 +52,6 @@ public class ControlJuego implements ActionListener, MouseListener{
         this.campoJugador = new Tarjeta[5];
         this.mano = new ArrayList<Tarjeta>();
         this.vista = new TableroJuego();
-        
-        this.vidaJugador = 50;
-        this.vidaMaquina = 50;
         /*
             Añade ActionListener y MouseListener a los objetos de los que se
             necesita obtener información sobre clicks y acciones.
@@ -79,6 +77,9 @@ public class ControlJuego implements ActionListener, MouseListener{
         this.vidaJugador = t.getVidaJugador();
         this.vidaMaquina = t.getVidaMaquina();
         
+        vista.lbVidaJugador.setText(Integer.toString(this.vidaJugador));
+        vista.lbVidaMaquina.setText(Integer.toString(this.vidaMaquina));
+        
         for (int i = 0; i < campoJugador.length; i++){
             if (campoJugador[i] != null){
                 ((Casilla)vista.getCampoAliado().getComponents()[i]).actualizarSprite(campoJugador[i].getId());
@@ -99,8 +100,16 @@ public class ControlJuego implements ActionListener, MouseListener{
         for (Tarjeta mano1 : mano) {
             vista.getMano().anadirTarjeta(mano1.getId());
         }
-        permitirClickear = true;
-        vista.getBotonPasar().setEnabled(true);
+        if (t.getGanador() == 0){
+            permitirClickear = true;
+            vista.getBotonPasar().setEnabled(true);
+        }else{
+            if (t.getGanador() == 1){
+                JOptionPane.showMessageDialog(vista, "Ganaste");
+            } else{
+                JOptionPane.showMessageDialog(vista, "Gana la maquina");
+            }
+        }
     }
     
     public void enviarTurno(){
@@ -108,7 +117,8 @@ public class ControlJuego implements ActionListener, MouseListener{
                             campoJugador,
                             mano,
                             vidaJugador,
-                            vidaMaquina
+                            vidaMaquina,
+                            0
                             );
         permitirClickear = false;
         ctrlGen.enviarTurno(t);

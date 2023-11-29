@@ -26,7 +26,7 @@ public abstract class Tarjeta implements Interfaces.MetodosCartas, Serializable{
     /* Reduce la vida de la carta en momento de juego*/
     @Override
     public void recibirDaño(int at){
-        valorSalud -= (int)2*at/valorDefensa;
+        valorSalud -= (int)4*at/valorDefensa;
         if (valorSalud < 0){
             valorSalud = 0;
         }

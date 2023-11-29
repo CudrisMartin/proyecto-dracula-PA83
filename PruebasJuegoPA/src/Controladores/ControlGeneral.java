@@ -116,6 +116,8 @@ public class ControlGeneral {
             System.out.println(e);
         }
     }
+    
+    
 
     
 //    public void enviarTurno(Turno t){
