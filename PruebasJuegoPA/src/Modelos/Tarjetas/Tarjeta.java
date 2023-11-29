@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Tarjetas;
+package Modelos.Tarjetas;
+
+import java.io.Serializable;
 
 /**
  *
@@ -10,8 +12,9 @@ package Tarjetas;
  * 
  * Clase abstracta de la que derivan todos los tipós de cartas
  */
-public abstract class Tarjeta implements Interfaces.MetodosCartas {
-    
+public abstract class Tarjeta implements Interfaces.MetodosCartas, Serializable{
+    private static final long serialVersionUID = 12L;
+        
     protected int id;
     protected String nombre;
     protected int valorSalud;

@@ -57,7 +57,7 @@ public class Casilla extends javax.swing.JPanel{
     /* Ubica cual es el sprite al quue se debe actualizar la casilla*/
     public void actualizarSprite(int id){
         this.idTarjeta = id;
-        if (id != 0){            
+        if (id != 0){
             this.sprite = new ImageIcon(getClass().getResource("/Recursos/Sprites/JPD_PA"+id+".png"));
         }
         this.updateUI();

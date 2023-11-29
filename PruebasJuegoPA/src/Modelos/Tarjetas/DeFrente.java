@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Tarjetas;
+package Modelos.Tarjetas;
 
 /**
  *
@@ -12,6 +12,7 @@ package Tarjetas;
  * 
  */
 public class DeFrente extends Tarjeta{
+    private static final long serialVersionUID = 12L;
     
     /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
     public DeFrente(int i){
