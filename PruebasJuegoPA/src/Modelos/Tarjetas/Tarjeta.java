@@ -4,14 +4,17 @@
  */
 package Modelos.Tarjetas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marti
  * 
  * Clase abstracta de la que derivan todos los tipós de cartas
  */
-public abstract class Tarjeta implements Interfaces.MetodosCartas {
-    
+public abstract class Tarjeta implements Interfaces.MetodosCartas, Serializable{
+    private static final long serialVersionUID = 12L;
+        
     protected int id;
     protected String nombre;
     protected int valorSalud;

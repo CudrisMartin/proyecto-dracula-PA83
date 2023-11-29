@@ -17,16 +17,13 @@ public class Turno implements Serializable {
     private static final long serialVersionUID = 12L;
     
     private Tarjeta[] campoMaquina, campoJugador;
-    private Mazo mazoJugador;
     private ArrayList<Tarjeta> mano;
     private int vidaJugador, vidaMaquina;
 
     public Turno(Tarjeta[] campoMaquina, Tarjeta[] campoJugador,
-                 Mazo mazoJugador,
                  ArrayList<Tarjeta> mano, int vidaJugador, int vidaMaquina) {
         this.campoMaquina = campoMaquina;
         this.campoJugador = campoJugador;
-        this.mazoJugador = mazoJugador;
         this.mano = mano;
         this.vidaJugador = vidaJugador;
         this.vidaMaquina = vidaMaquina;
@@ -38,10 +35,6 @@ public class Turno implements Serializable {
 
     public Tarjeta[] getCampoJugador() {
         return campoJugador;
-    }
-
-    public Mazo getMazoJugador() {
-        return mazoJugador;
     }
 
     public ArrayList<Tarjeta> getMano() {

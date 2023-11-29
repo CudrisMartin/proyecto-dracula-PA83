@@ -3,18 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package  GUI;
-import logica.Usuario;
 import javax.swing.*;
 /**
  *
  * @author Andro
  */
-public class Registro extends javax.swing.JFrame {
+public class VistaRegistro extends javax.swing.JFrame {
 
     /**
      * Creates new form Registro
      */
-    public Registro() {
+    public VistaRegistro() {
         initComponents();
     }
 
@@ -106,7 +105,6 @@ public class Registro extends javax.swing.JFrame {
            if(Txtfield_nombre.getText().length()<0 || Jfield_contrasenaconfirm.getText().length()<0 || Jfield_contrasenaconfirm.getText().length()<0 ){
                JOptionPane.showMessageDialog(null, "campos vacios");
            }
-    Usuario prueba = new Usuario(Txtfield_nombre.getText(),Jfield_contrasenaconfirm.getText(),2,0,"abegh");
         
     }//GEN-LAST:event_bt_registrarActionPerformed
 
@@ -150,30 +148,31 @@ public class Registro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Registro().setVisible(true);
+                new VistaRegistro().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField Jfield_contrasena;
-    private javax.swing.JPasswordField Jfield_contrasenaconfirm;
+    public javax.swing.JPasswordField Jfield_contrasena;
+    public javax.swing.JPasswordField Jfield_contrasenaconfirm;
     private javax.swing.JLabel Jlabel_fondo;
-    private javax.swing.JTextField Txtfield_nombre;
-    private javax.swing.JButton bt_registrar;
+    public javax.swing.JTextField Txtfield_nombre;
+    public javax.swing.JButton bt_registrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

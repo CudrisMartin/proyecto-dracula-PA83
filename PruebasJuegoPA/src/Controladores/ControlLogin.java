@@ -44,7 +44,7 @@ public class ControlLogin implements ActionListener{
             for (int i  = 0; i < contChars.length; i++){
                 contString += contChars[i];
             }
-            Jugador j = new Jugador(0,0,vista.TxtLog_nombre.getText(),contString,"");
+            Jugador j = new Jugador(1,0,vista.TxtLog_nombre.getText(),contString,"");
             ctrlGen.iniciarConeccion(j);
         }
     }
