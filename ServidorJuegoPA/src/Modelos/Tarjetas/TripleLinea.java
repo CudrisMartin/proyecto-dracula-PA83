@@ -11,6 +11,7 @@ package Modelos.Tarjetas;
  * Las tarjetas TripleLinea atacan no solo a la tarjeta al frente suyo, sino a las que tenga a sus costados
  */
 public class TripleLinea extends Tarjeta {
+    private static final long serialVersionUID = 12L;
     
     /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
     public TripleLinea(char i){

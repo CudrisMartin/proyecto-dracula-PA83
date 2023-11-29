@@ -30,8 +30,6 @@ public class ControlJuego{
     */
     public ControlJuego(String mazoJugador) {
         
-        
-        
         //Genera objetos necesarios para el transcurso de la partida
         this.mazoJugador = new Mazo(mazoJugador);
         this.mazoEnemigo = new Mazo();
@@ -41,13 +39,16 @@ public class ControlJuego{
         
         this.vidaJugador = 50;
         this.vidaMaquina = 50;
+        
+        do{
+            darCartaAJugador();
+        }while(mano.size() < 3);
     }
     
-    public Turno generarTurno(Tarjeta[] campoMaquina, Tarjeta[] campoJugador, ArrayList<Tarjeta> mano, Mazo mazoJugador){
-        this.campoMaquina = campoMaquina;
-        this.campoJugador = campoJugador;
-        this.mano = mano;
-        this.mazoJugador = mazoJugador;
+    public Turno generarTurno(Turno t){
+        this.campoMaquina = t.getCampoMaquina();
+        this.campoJugador = t.getCampoJugador();
+        this.mano = t.getMano();
         
         generarDano(this.campoJugador, this.campoMaquina);
         generarDano(this.campoMaquina, this.campoJugador);
@@ -56,13 +57,17 @@ public class ControlJuego{
 
         darCartaAJugador();
         
-        Turno t = new Turno(this.campoMaquina, this.campoJugador, this.mazoJugador, this.mano, this.vidaJugador, this.vidaMaquina);
+        Turno respuesta = new Turno(this.campoMaquina,
+                            this.campoJugador,
+                            this.mano,
+                            this.vidaJugador,
+                            this.vidaMaquina);
         return t;
     }
     
     public Turno primerTurno(){
         colocarCartaMaquina();
-        Turno t = new Turno(this.campoMaquina, this.campoJugador, this.mazoJugador, this.mano, this.vidaJugador, this.vidaMaquina);
+        Turno t = new Turno(this.campoMaquina, this.campoJugador, this.mano, this.vidaJugador, this.vidaMaquina);
         return t;
     }
     

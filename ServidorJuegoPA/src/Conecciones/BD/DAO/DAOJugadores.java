@@ -184,39 +184,32 @@ public class DAOJugadores {
     }
 
 //Este metodo nos ayuda a obtener la informacion de un jugador
-    public void obtenerInformacionJugador(int idJugador) {
+    public String obtenerInformacionJugador(String nombreJugador) {
 
-        String url = "jdbc:mysql://localhost:3306/Jurados";
+        String url = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
         String usuario = "root";
         String contras = ""; 
         Connection conexion = null;
         PreparedStatement preparedStatement = null;
+        
+        String respuesta = "";
 
         try {
+            conexion = DriverManager.getConnection(url, usuario, contras);
             if (conexion != null) {
                 conexion = DriverManager.getConnection(url, usuario, contras);
                 // Consulta para obtener la información del jugador con el ID proporcionado
-                String consulta = "SELECT * FROM Jugador WHERE k_idJugador = ?";
+                String consulta = "SELECT n_mazo FROM Jugador WHERE k_nombre = ?";
                 preparedStatement = conexion.prepareStatement(consulta);
-                preparedStatement.setInt(1, idJugador);
+                preparedStatement.setString(1, nombreJugador);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 if (resultSet.next()) {
-                    int id = resultSet.getInt("k_idJugador");
-                    String nombre = resultSet.getString("k_nombre");
-                    String contrasena = resultSet.getString("n_contrasena");
                     String mazo = resultSet.getString("n_mazo");
-                    int partidasGanadas = resultSet.getInt("q_partidasGan");
-
-                    // Aquí puedes imprimir o utilizar la información como desees
-                    System.out.println("ID: " + id);
-                    System.out.println("Nombre: " + nombre);
-                    System.out.println("Contraseña: " + contrasena);
-                    System.out.println("Mazo: " + mazo);
-                    System.out.println("Partidas Ganadas: " + partidasGanadas);
+                    respuesta = mazo;
                 } else {
-                    System.out.println("No se encontró al jugador con ID " + idJugador);
+                    System.out.println("No se encontró al jugador con ID " + nombreJugador);
                 }
             } else {
                 System.out.println("Error al conectar a la base de datos.");
@@ -237,6 +230,7 @@ public class DAOJugadores {
                 e.printStackTrace();
             }
         }
+        return respuesta;
     }
     
     public boolean comprobarContraseña(String nombreJugador, String contraseña) {

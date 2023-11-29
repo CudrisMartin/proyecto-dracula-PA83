@@ -6,6 +6,7 @@ package Modelos.Tarjetas;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.Properties;
 
 /**
@@ -14,7 +15,8 @@ import java.util.Properties;
  * 
  * Clase abstracta de la que derivan todos los tipós de cartas
  */
-public abstract class Tarjeta implements Interfaces.MetodosCartas {
+public abstract class Tarjeta implements Interfaces.MetodosCartas, Serializable{
+    private static final long serialVersionUID = 12L;
     
     protected int id;
     protected String nombre;
@@ -36,12 +38,12 @@ public abstract class Tarjeta implements Interfaces.MetodosCartas {
             System.out.println(e.getMessage());
         }
         
-        this.id = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".id"));
-        this.nombre = propiedades.getProperty("Tarjeta"+id+".nombre");
-        this.valorSalud = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorSalud"));
-        this.valorAtaque = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorAtaque"));
-        this.valorDefensa = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorDefensa"));
-        this.valorMagia = Integer.parseInt(propiedades.getProperty("Tarjeta"+id+".valorMagia"));
+        this.id = Integer.parseInt(propiedades.getProperty("tarjeta"+id+".id"));
+        this.nombre = propiedades.getProperty("tarjeta"+id+".nombre");
+        this.valorSalud = Integer.parseInt(propiedades.getProperty("tarjeta"+id+".valorSalud"));
+        this.valorAtaque = Integer.parseInt(propiedades.getProperty("tarjeta"+id+".valorAtaque"));
+        this.valorDefensa = Integer.parseInt(propiedades.getProperty("tarjeta"+id+".valorDefensa"));
+        this.valorMagia = Integer.parseInt(propiedades.getProperty("tarjeta"+id+".valorMagia"));
     }
     
     /* Reduce la vida de la carta en momento de juego*/

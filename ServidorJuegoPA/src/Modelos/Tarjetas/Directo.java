@@ -12,6 +12,7 @@ package Modelos.Tarjetas;
  * justo al frente.
  */
 public class Directo extends Tarjeta{
+    private static final long serialVersionUID = 12L;
     
     /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
     public Directo(char i){

@@ -12,6 +12,7 @@ package Modelos.Tarjetas;
  * las tarjetas CampoCompleto atacan a todas las casillas del campo enemigo.
  */
 public class CampoCompleto extends Tarjeta {
+    private static final long serialVersionUID = 12L;
     
     /* Establece las caracteristicas de las cartas dependiendo del indice de esta*/
     public CampoCompleto(char i){

@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class Mazo {
     
-    private ArrayList<Tarjeta> contenidoMazo;
+    private ArrayList<Tarjeta> contenidoMazo = new ArrayList<Tarjeta>();
     private int tamanoMazo;
     
     private char[] guiaTarjetas= {'A','B','C','D','E',
@@ -29,7 +29,9 @@ public class Mazo {
     
     public Mazo(String mazoJugador){
         for (int i = 0; i < mazoJugador.length(); i++){
-            contenidoMazo.add(crearTarjeta(mazoJugador.charAt(i)));
+            char objetivo = mazoJugador.charAt(i);
+            Tarjeta t = crearTarjeta(objetivo);
+            contenidoMazo.add(t);
         }
        tamanoMazo = contenidoMazo.size();
     }
