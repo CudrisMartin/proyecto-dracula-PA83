@@ -38,7 +38,7 @@ public class Mazo {
     
     public Mazo(){
         
-        tamanoMazo = rng.nextInt(10, 20);
+        tamanoMazo = rng.nextInt(10, 15);
         
         do{
             int idCarta = rng.nextInt(1,20);

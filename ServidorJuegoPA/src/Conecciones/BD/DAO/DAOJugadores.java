@@ -184,7 +184,7 @@ public class DAOJugadores {
     }
 
 //Este metodo nos ayuda a obtener la informacion de un jugador
-    public String obtenerInformacionJugador(String nombreJugador) {
+    public String obtenerContrasenaJugador(String nombreJugador) {
 
         String url = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
         String usuario = "root";
@@ -210,6 +210,55 @@ public class DAOJugadores {
                     respuesta = mazo;
                 } else {
                     System.out.println("No se encontró al jugador con ID " + nombreJugador);
+                }
+            } else {
+                System.out.println("Error al conectar a la base de datos.");
+            }
+        } catch (SQLException e) {
+            // Manejo de excepciones
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                // Manejo de excepciones
+                e.printStackTrace();
+            }
+        }
+        return respuesta;
+    }
+    
+        public int obtenerPuntajeJugador(String nombreJugador) {
+
+        String url = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
+        String usuario = "root";
+        String contras = ""; 
+        Connection conexion = null;
+        PreparedStatement preparedStatement = null;
+        
+        int respuesta = 0;
+
+        try {
+            conexion = DriverManager.getConnection(url, usuario, contras);
+            if (conexion != null) {
+                conexion = DriverManager.getConnection(url, usuario, contras);
+                // Consulta para obtener la información del jugador con el ID proporcionado
+                String consulta = "SELECT q_partidasGan FROM Jugador WHERE k_nombre = ?";
+                preparedStatement = conexion.prepareStatement(consulta);
+                preparedStatement.setString(1, nombreJugador);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    int puntaje = resultSet.getInt("q_partidasGan");
+                    respuesta = puntaje;
+                } else {
+                    System.out.println("No se encontró al jugador con Nombre " + nombreJugador);
                 }
             } else {
                 System.out.println("Error al conectar a la base de datos.");
@@ -334,6 +383,48 @@ public class DAOJugadores {
                 e.printStackTrace();
             }
             return respuesta;
+        }
+    }
+    
+    public void actualizarPüntaje(String k_nombre) {
+        String url = "jdbc:mysql://localhost:3306/PROYECTO_PAA_DRACULA";
+        String usuario = "root"; // Nombre de usuario de MySQL
+        String contras = ""; // Contraseña de MySQL
+        Connection conexion = null;
+        PreparedStatement statement = null;
+
+        try {
+            // Establecer la conexión a la base de datos
+            conexion = DriverManager.getConnection(url, usuario, contras);
+
+            // Definir la consulta SQL parametrizada
+            String sql = "UPDATE Jugador SET q_partidasGan = ? WHERE k_nombre = ?";
+
+            // Preparar la declaración SQL
+            statement = conexion.prepareStatement(sql);
+            
+            int nuevoPunt = obtenerPuntajeJugador(k_nombre)+1;
+
+            // Establecer los parámetros en la consulta
+            statement.setInt(1, nuevoPunt);
+            statement.setString(2, k_nombre);
+
+            // Ejecutar la consulta para insertar en la tabla Exonerados
+            statement.executeUpdate();
+            
+        } catch (SQLException e) {
+            // Manejo de excepciones
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                // Manejo de excepciones
+            }
         }
     }
 }

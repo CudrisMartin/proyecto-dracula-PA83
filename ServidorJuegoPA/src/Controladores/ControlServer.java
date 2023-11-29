@@ -16,6 +16,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -95,7 +96,7 @@ public class ControlServer {
                                         /*Se utiliza una expresión lambda para crear un hilo debido a la necesidad de manejar múltiples conexiones simultáneamente.
                                         *La expresión lambda proporciona una forma concisa de crear una implementación para una interfaz funcional, 
                                         que en este caso es la interfaz Runnable.*/
-                                        ControlJuego ctrlJuego = new ControlJuego(dao.obtenerInformacionJugador(jugador.getNombre()));
+                                        ControlJuego ctrlJuego = new ControlJuego(dao.obtenerContrasenaJugador(jugador.getNombre()));
                                         Turno primTurno = ctrlJuego.primerTurno();
                                         try(ObjectOutputStream ObOuSt = new ObjectOutputStream(cliente.getOutputStream())){
                                             ObOuSt.writeObject(primTurno);
@@ -123,6 +124,8 @@ public class ControlServer {
                                                         if (respuesta.getGanador() != 0){
                                                             if (respuesta.getGanador() == 1){
                                                                 consola.mostrarMensaje("Gana jugador");
+                                                                dao.actualizarPüntaje(jugador.getNombre());
+                                                                
                                                             }else if(respuesta.getGanador() == 2){
                                                                 consola.mostrarMensaje("Gana maquina");
                                                             }
@@ -151,8 +154,21 @@ public class ControlServer {
                         }else if (jugador.getIdJugador() == 0){
                             // Envío de mensajes de acuerdo con la información recibida
                             try (DataOutputStream dataOutputStream = new DataOutputStream(cliente.getOutputStream())) {
+                                
+                                char[] guiaTarjetas= {'A','B','C','D','E',
+                                  'F','G','H','I','J',
+                                  'K','L','M','N','O',
+                                  'P','Q','R','S','T'};
+                                
+                                String nuevoMazo = "";
+                                
+                                Random rng  = new Random();
+                                
+                                for (int i = 0; i <= rng.nextInt(10, 20); i++){
+                                    nuevoMazo += Character.toString(guiaTarjetas[rng.nextInt(0, 19)]);
+                                }
 
-                                this.dao.inscribirJugador(jugador.getNombre(), jugador.getContraseña(), "");
+                                this.dao.inscribirJugador(jugador.getNombre(), jugador.getContraseña(), nuevoMazo);
                                 dataOutputStream.writeUTF("RegistroCorrecto");
                                 
                             } catch (Exception ex) {

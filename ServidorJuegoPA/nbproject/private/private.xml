@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Repositorios_github/proyecto-dracula-PA83/ServidorJuegoPA/src/Controladores/ControlServer.java</file>
-            <file>file:/C:/Repositorios_github/proyecto-dracula-PA83/ServidorJuegoPA/src/Modelos/Tarjetas/Tarjeta.java</file>
-            <file>file:/C:/Repositorios_github/proyecto-dracula-PA83/ServidorJuegoPA/src/Controladores/ControlJuego.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/ServidorJuegoPA/src/Conecciones/BD/DAO/DAOJugadores.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/ServidorJuegoPA/src/Controladores/ControlServer.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/ServidorJuegoPA/src/GUI/Consola.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/ServidorJuegoPA/src/Modelos/Tarjetas/Mazo.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/ServidorJuegoPA/src/Controladores/Launcher.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/ServidorJuegoPA/src/Controladores/ControlJuego.java</file>
         </group>
     </open-files>
 </project-private>

@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Repositorios_github/proyecto-dracula-PA83/PruebasJuegoPA/src/Controladores/ControlJuego.java</file>
-            <file>file:/C:/Repositorios_github/proyecto-dracula-PA83/PruebasJuegoPA/src/Modelos/Tarjetas/Tarjeta.java</file>
-            <file>file:/C:/Repositorios_github/proyecto-dracula-PA83/PruebasJuegoPA/src/Controladores/ControlGeneral.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/PruebasJuegoPA/src/Modelos/Tarjetas/CampoCompleto.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/PruebasJuegoPA/src/Controladores/ControlJuego.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/PruebasJuegoPA/src/Controladores/Launcher.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/PruebasJuegoPA/src/Modelos/Tarjetas/Tarjeta.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/PruebasJuegoPA/src/Controladores/ControlRegistro.java</file>
+            <file>file:/C:/Repos_git/proyecto-dracula-PA83/PruebasJuegoPA/src/Controladores/ControlLogin.java</file>
         </group>
     </open-files>
 </project-private>

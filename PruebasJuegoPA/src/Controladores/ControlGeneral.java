@@ -117,61 +117,8 @@ public class ControlGeneral {
         }
     }
     
-    
-
-    
-//    public void enviarTurno(Turno t){
-//        if (socket != null) {
-//                if (vista.jTextArea.getText().isEmpty()) {
-//                    JOptionPane.showMessageDialog(vista, "Por favor, ingrese una justificación para continuar.", "Campo Vacío", JOptionPane.WARNING_MESSAGE);
-//                } else {
-//                    try {
-//                        dataOutputStream = new DataOutputStream(socket.getOutputStream());
-//                        String justificacion = vista.jComboBox.getSelectedItem() + " " + vista.jTextArea.getText();
-//                        dataOutputStream.writeUTF(justificacion);
-//                        vista.showMessage("Esperámos que pase un buen día");
-//                        vista.dispose();
-//                    } catch (IOException e) {
-//                        startPage.showMessage("Error al enviar el mensaje al servidor: " + e.getMessage());
-//                    }
-//                }
-//            }
-//    }
+    public void reiniciarJuego(){
+        ctrlJuego.ocultarVista();
+        ctrlLogin.mostrarVista();
+    }
 }
-
-
-
-//public class ClientFacade implements ActionListener {
-//
-//
-//    // Método que maneja los eventos de acción
-//    @Override
-//    public void actionPerformed(ActionEvent ae) {
-//        
-//    }
-//
-//    // Método para inicializar la página de inicio
-//    private void startView() {
-//        startPage.setLocationRelativeTo(null);
-//        startPage.setVisible(true);
-//        startPage.setResizable(false);
-//        startPage.setTitle("Jurados de Votación 2023");
-//    }
-//
-//    // Método para inicializar la segunda vista
-//    private void inicioMenu() {
-//        vista.setVisible(true);
-//        vista.setLocationRelativeTo(null);
-//        vista.setResizable(false);
-//        vista.setTitle("Jurados de Votación 2023");
-//
-//        // Establecer la conexión en el puerto 3333 (segunda interfaz)
-//        int secondPort = 3333;
-//        try {
-//            socket = new Socket(serverIP, secondPort);
-//        } catch (IOException e) {
-//            startPage.showMessage("Error en el usuario: " + e.getMessage());
-//        }
-//    }
-//}
-//
